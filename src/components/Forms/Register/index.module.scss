@@ -1,3 +1,12 @@
 .formContainer {
-  display: flex;
+  display: grid;
+  max-width: 400px;
+  border-left: 2px solid #538bf7;
+  padding-left: 32px;
+  padding-bottom: 32px;
+}
+
+.formButton {
+  max-width: 35%;
+  width: 35%;
 }

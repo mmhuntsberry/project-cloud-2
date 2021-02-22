@@ -1,0 +1,16 @@
+@use '@carbon/themes/scss/themes';
+
+.u-pad-t-05 {
+  padding-top: themes.$spacing-05;
+}
+
+.u-pad-b-05 {
+  padding-bottom: themes.$spacing-05;
+}
+
+.u-pad-t-layout-05 {
+  padding-top: themes.$layout-05;
+}
+.u-pad-t-layout-06 {
+  padding-top: themes.$layout-06;
+}
