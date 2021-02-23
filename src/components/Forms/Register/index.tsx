@@ -193,7 +193,8 @@ export const Register = () => {
 
   useEffect(() => {
     console.log(state.email.loading);
-  });
+    console.log(JSON.stringify(state, null, 4));
+  }, [state]);
 
   const renderStatus = () => {
     const { loading, success } = state.email;
@@ -203,7 +204,12 @@ export const Register = () => {
       // return <InlineLoading className="inline-loading" />;
     }
     if (!loading && success) {
-      return <InlineLoading className="inline-loading" status="finished" />;
+      return (
+        <InlineLoading
+          className={`${styles.inlineLoading}`}
+          status="finished"
+        />
+      );
     }
     if (!loading) {
       return null;
@@ -220,12 +226,14 @@ export const Register = () => {
       <div className={styles.formInputContainer}>
         <TextInput
           id="email"
+          className={styles.textInput}
           labelText="Email"
           name="email"
           size="xl"
           light={true}
           placeholder="Enter email"
           invalid={state.email.hasError}
+          onClick={() => console.log("hiya")}
           onChange={(evt) =>
             dispatch({
               type: "UPDATE_INPUT",
@@ -249,10 +257,9 @@ export const Register = () => {
                 success: false,
               });
             }
-
             setTimeout(() => {
               dispatch({
-                type: "SUCCESS",
+                type: "UPDATE_INPUT",
                 field: "email",
                 payload: evt.target.value,
                 hasError: false,
@@ -261,9 +268,8 @@ export const Register = () => {
                 success: true,
               });
             }, 1000);
-
             dispatch({
-              type: "SUCCESS",
+              type: "LOADING",
               field: "email",
               payload: evt.target.value,
               hasError: false,
@@ -282,6 +288,7 @@ export const Register = () => {
         labelText="Password"
         name="password"
         light
+        size="xl"
         onChange={(evt) =>
           dispatch({
             type: "UPDATE_INPUT",

@@ -7,14 +7,19 @@ import { Accordion } from "./components/Accordion";
 function App() {
   return (
     <div className="App">
-      <div className="u-margin-b-05">
-        <Accordion>
-          <Register />
-        </Accordion>
+      <div className="bx--grid">
+        <div className="bx--row">
+          {/* Treated as flex items need to contain to one div*/}
+          <div className="bx--col-lg-9 bx--col-md-8 bx--col-sm-8">
+            <Accordion>
+              <Register />
+            </Accordion>
+            <Accordion>
+              <Register />
+            </Accordion>
+          </div>
+        </div>
       </div>
-      <Accordion>
-        <Register />
-      </Accordion>
     </div>
   );
 }

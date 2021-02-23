@@ -28,11 +28,7 @@ export const Accordion = ({ children }) => {
       <AnimatePresence>
         {isToggled && (
           <motion.div
-            style={{
-              backgroundColor: "#262626",
-              overflow: "hidden",
-              width: "600px",
-            }}
+            className={styles.accordionBody}
             initial={{ height: 0 }}
             animate={{ height: "auto" }}
             exit={{ height: 0 }}

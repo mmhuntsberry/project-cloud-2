@@ -1,11 +1,6 @@
-// carbon ui shell
-// $feature-flags: (
-//   ui-shell: true,
-// );
-
 // import carbon components styles
-@use 'carbon-components/scss/globals/scss/styles' as *;
-@use '@carbon/themes/scss/themes';
+@use 'carbon-components/scss/globals/scss/styles';
+// @use '@carbon/themes/scss/themes';
 
-$carbon--theme: themes.$carbon--theme--g100;
-@include carbon--theme();
+// $carbon--theme: themes.$carbon--theme--g100;
+// @include carbon--theme();
