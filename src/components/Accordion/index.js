@@ -1,19 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import styles from "./index.module.scss";
+import { RegisterContext } from "../../contexts/RegisterContext";
+import { Edit20 } from "@carbon/icons-react";
 
 export const Accordion = ({ children }) => {
   const [isToggled, setIsToggled] = useState(false);
+  const context = useContext(RegisterContext);
+  const { formEdit, isFormValid } = context;
   const {
     accordionButtonIcon,
     accordionButtonIconComplete,
     accordionButton,
   } = styles;
 
-  useEffect(() => {});
+  useEffect(() => {
+    console.log(isFormValid);
+  }, [isFormValid]);
 
   return (
-    <>
+    <div className={styles.accordionContainer}>
       <button
         className={`${accordionButton}`}
         onClick={() => setIsToggled(!isToggled)}
@@ -23,6 +29,16 @@ export const Accordion = ({ children }) => {
         </svg>
         <h4 className={styles.accordionButtonText}>Account information</h4>
       </button>
+      {isFormValid.success === true && (
+        <button
+          className={styles.formSuccessEditButton}
+          onClick={() => {
+            formEdit();
+          }}
+        >
+          <Edit20 />
+        </button>
+      )}
       <AnimatePresence>
         {isToggled && (
           <motion.div
@@ -35,6 +51,6 @@ export const Accordion = ({ children }) => {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </div>
   );
 };

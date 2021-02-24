@@ -163,21 +163,15 @@ export const Register = () => {
         </Form>
       ) : (
         <div className={styles.formSuccessDetails}>
-          <button
-            className={styles.formSuccessEditButton}
-            onClick={() => {
-              formEdit();
-            }}
-          >
-            <Edit20 />
-          </button>
-          <p>{email.value}</p>
-          <p>
+          <p className={styles.formSuccessEmail}>{email.value}</p>
+          <p className={styles.formSuccessPassword}>
             {password.value.split("").map((char) => (
               <span>&bull;</span>
             ))}
           </p>
-          <p>{accountType.value}</p>
+          <p className={styles.formSuccessAccount}>
+            {accountType.value} <span>account</span>
+          </p>
         </div>
       )}
     </>
