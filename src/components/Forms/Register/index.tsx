@@ -13,6 +13,7 @@ import {
   ProgressIndicator,
   ProgressStep,
 } from "carbon-components-react";
+import { Edit20 } from "@carbon/icons-react";
 import { CustomButton } from "../../Buttons";
 import styles from "./index.module.scss";
 import isEmail from "validator/es/lib/isEmail";
@@ -20,6 +21,7 @@ import { Validation } from "../../Validation";
 import { ValidationTooltip } from "../../ValidationTooltip";
 
 import { buildPasswordConstraints } from "../../../utils";
+import { strict } from "node:assert";
 
 const initialState = {
   email: {
@@ -34,6 +36,12 @@ const initialState = {
     hasError: false,
     error: "",
     loading: false,
+    success: false,
+  },
+  accountType: {
+    value: "company",
+  },
+  isFormValid: {
     success: false,
   },
   // error: "",
@@ -54,6 +62,12 @@ interface LoginState {
     hasError: boolean;
     error: string;
     loading: boolean;
+    success: boolean;
+  };
+  accountType: {
+    value: string;
+  };
+  isFormValid: {
     success: boolean;
   };
   // error: string;
@@ -81,12 +95,22 @@ type LoginAction =
       success: boolean;
     }
   | {
-      type: "SUCCESS";
+      type: "ACCOUNT_TYPE";
+      field: string;
+      payload: string;
+    }
+  | {
+      type: "FIELD_SUCCESS";
       field: string;
       payload: string;
       hasError: boolean;
       error: string;
       loading: boolean;
+      success: boolean;
+    }
+  | {
+      type: "FORM_SUCCESS";
+      field: string;
       success: boolean;
     }
   | {
@@ -140,7 +164,15 @@ const reducer = (state: LoginState, action: LoginAction) => {
           success: action.success,
         },
       };
-    case "SUCCESS":
+    case "ACCOUNT_TYPE":
+      return {
+        ...state,
+        [action.field]: {
+          field: action.field,
+          value: action.payload,
+        },
+      };
+    case "FIELD_SUCCESS":
       return {
         ...state,
         [action.field]: {
@@ -149,6 +181,13 @@ const reducer = (state: LoginState, action: LoginAction) => {
           hasError: action.hasError,
           error: action.error,
           loading: action.loading,
+          success: action.success,
+        },
+      };
+    case "FORM_SUCCESS":
+      return {
+        ...state,
+        [action.field]: {
           success: action.success,
         },
       };
@@ -199,11 +238,11 @@ export const Register = () => {
   // const { email, password, error } = state;
 
   useEffect(() => {
-    // console.log(state.email);
+    console.log(state.email);
     console.log(state.password);
-    console.log("p constraints", passwordConstraints);
+    console.log(state);
     // console.log(JSON.stringify(state, null, 4));
-  }, [state]);
+  }, [state, isOpen]);
 
   const renderStatus = () => {
     const { loading, success } = state.email;
@@ -231,154 +270,202 @@ export const Register = () => {
   };
 
   return (
-    <Form onSubmit={onSubmit} className={styles.formContainer}>
-      <div className={styles.formInputContainer}>
-        <TextInput
-          id="email"
-          className={styles.textInput}
-          labelText="Email"
-          name="email"
-          size="xl"
-          light={true}
-          placeholder="Enter email"
-          invalid={state.email.hasError}
-          onChange={(evt) =>
-            dispatch({
-              type: "UPDATE_INPUT",
-              field: evt.target.name,
-              payload: evt.target.value,
-              hasError: false,
-              error: "",
-              loading: false,
-              success: false,
-            })
-          }
-          onBlur={(evt) => {
-            if (!isEmail(state.email.value)) {
-              return dispatch({
-                type: "ERROR",
-                field: "email",
-                payload: evt.target.value,
-                hasError: true,
-                error: "Must be a valid email addresss.",
-                loading: false,
-                success: false,
-              });
+    <>
+      {!state.isFormValid.success ? (
+        <Form onSubmit={onSubmit} className={styles.formContainer}>
+          <div className={styles.formInputContainer}>
+            <TextInput
+              id="email"
+              className={styles.textInput}
+              labelText="Email"
+              name="email"
+              size="xl"
+              light={true}
+              placeholder="Enter email"
+              invalid={state.email.hasError}
+              onChange={(evt) =>
+                dispatch({
+                  type: "UPDATE_INPUT",
+                  field: evt.target.name,
+                  payload: evt.target.value,
+                  hasError: false,
+                  error: "",
+                  loading: false,
+                  success: false,
+                })
+              }
+              onBlur={(evt) => {
+                if (!isEmail(state.email.value)) {
+                  return dispatch({
+                    type: "ERROR",
+                    field: "email",
+                    payload: evt.target.value,
+                    hasError: true,
+                    error: "Must be a valid email addresss.",
+                    loading: false,
+                    success: false,
+                  });
+                }
+                setTimeout(() => {
+                  dispatch({
+                    type: "FIELD_SUCCESS",
+                    field: "email",
+                    payload: evt.target.value,
+                    hasError: false,
+                    error: "",
+                    loading: false,
+                    success: true,
+                  });
+                }, 1000);
+                dispatch({
+                  type: "LOADING",
+                  field: "email",
+                  payload: evt.target.value,
+                  hasError: false,
+                  error: "",
+                  loading: true,
+                  success: false,
+                });
+              }}
+              value={email.value}
+            />
+            {renderStatus()}
+          </div>
+          <div
+            className={`${styles.passwordInputContainer} u-margin-t-06 u-margin-b-04`}
+          >
+            <TextInput.PasswordInput
+              id="password"
+              labelText="Password"
+              name="password"
+              light
+              size="xl"
+              placeholder="Enter password"
+              onFocus={() => setIsOpen(true)}
+              onBlur={(evt) => {
+                setIsOpen(false);
+
+                if (passwordConstraints.some(({ constraint }) => !constraint)) {
+                  console.log("INSIDE OF IT");
+                  return dispatch({
+                    type: "ERROR",
+                    field: "password",
+                    payload: evt.target.value,
+                    hasError: true,
+                    error: "",
+                    loading: false,
+                    success: false,
+                  });
+                }
+
+                dispatch({
+                  type: "FIELD_SUCCESS",
+                  field: "password",
+                  payload: evt.target.value,
+                  hasError: false,
+                  error: "",
+                  loading: false,
+                  success: true,
+                });
+              }}
+              onChange={(evt) =>
+                dispatch({
+                  type: "UPDATE_INPUT",
+                  field: evt.target.name,
+                  payload: evt.target.value,
+                  hasError: false,
+                  error: "",
+                  loading: false,
+                  success: false,
+                })
+              }
+              value={state.password.value}
+            />
+            <Validation
+              constraints={passwordConstraints}
+              password={state.password.value}
+            />
+            <ValidationTooltip
+              constraints={passwordConstraints}
+              open={isOpen}
+            />
+          </div>
+          <div className="u-margin-b-06"></div>
+          <FormGroup legendText="">
+            <RadioButtonGroup
+              className={styles.radioButtonGroup}
+              defaultSelected="company"
+              name="accountType"
+              valueSelected={state.accountType.value}
+              orientation="horizontal"
+              onChange={(evt) => {
+                dispatch({
+                  type: "ACCOUNT_TYPE",
+                  field: "accountType",
+                  payload: String(evt),
+                });
+              }}
+            >
+              <RadioButton
+                id="radio-1"
+                labelText="Company account"
+                value="company"
+              />
+              <RadioButton
+                id="radio-2"
+                labelText="Personal account"
+                value="personal"
+              />
+            </RadioButtonGroup>
+          </FormGroup>
+
+          <Button
+            disabled={
+              state.email.success === true && state.password.success === true
+                ? false
+                : true
             }
-            setTimeout(() => {
+            className={styles.formButton}
+            onClick={() => {
               dispatch({
-                type: "UPDATE_INPUT",
-                field: "email",
-                payload: evt.target.value,
-                hasError: false,
-                error: "",
-                loading: false,
+                type: "FORM_SUCCESS",
+                field: "isFormValid",
                 success: true,
               });
-            }, 1000);
-            dispatch({
-              type: "LOADING",
-              field: "email",
-              payload: evt.target.value,
-              hasError: false,
-              error: "",
-              loading: true,
-              success: false,
-            });
-          }}
-          value={email.value}
-        />
-        {renderStatus()}
-      </div>
-      <div
-        className={`${styles.passwordInputContainer} u-margin-t-06 u-margin-b-04`}
-      >
-        <TextInput.PasswordInput
-          id="password"
-          labelText="Password"
-          name="password"
-          light
-          size="xl"
-          placeholder="Enter password"
-          onFocus={() => setIsOpen(true)}
-          onBlur={(evt) => {
-            setIsOpen(false);
-            // TODO GOAL TO TOGGLE NEXT BUTTON if both email and password don't have errors
-            // if (
-            //   state.password.value.length > 0 &&
-            //   passwordConstraints.forEach(
-            //     ({ constraint }) => constraint === false
-            //   )
-            // ) {
-            //   console.log("INSIDE OF IT");
-            //   return dispatch({
-            //     type: "ERROR",
-            //     field: "password",
-            //     payload: evt.target.value,
-            //     hasError: true,
-            //     error: "",
-            //     loading: false,
-            //     success: false,
-            //   });
-            // }
-          }}
-          onChange={(evt) =>
-            dispatch({
-              type: "UPDATE_INPUT",
-              field: evt.target.name,
-              payload: evt.target.value,
-              hasError: false,
-              error: "",
-              loading: false,
-              success: false,
-            })
-          }
-          value={state.password.value}
-        />
-        <Validation
-          constraints={passwordConstraints}
-          password={state.password.value}
-        />
-        <ValidationTooltip constraints={passwordConstraints} open={isOpen} />
-      </div>
-      <div className="u-margin-b-06"></div>
-      <FormGroup legendText="">
-        <RadioButtonGroup
-          className={styles.radioButtonGroup}
-          defaultSelected="company"
-          name="account-type"
-          valueSelected="company"
-          orientation="horizontal"
-        >
-          <RadioButton
-            id="radio-1"
-            labelText="Company account"
-            value="company"
-          />
-          <RadioButton
-            id="radio-2"
-            labelText="Personal account"
-            value="personal"
-          />
-        </RadioButtonGroup>
-      </FormGroup>
-
-      <Button
-        disabled={
-          state.email.success === true && state.password.success === true
-            ? false
-            : true
-        }
-        className={styles.formButton}
-      >
-        Next
-      </Button>
-      {/* <CustomButton
+            }}
+          >
+            Next
+          </Button>
+          {/* <CustomButton
         onClick={(evt) => {
           evt.preventDefault();
           console.log("text");
         }}
       /> */}
-    </Form>
+        </Form>
+      ) : (
+        <div className={styles.formSuccessDetails}>
+          <button
+            className={styles.formSuccessEditButton}
+            onClick={() => {
+              dispatch({
+                type: "FORM_SUCCESS",
+                field: "isFormValid",
+                success: false,
+              });
+            }}
+          >
+            <Edit20 />
+          </button>
+          <p>{state.email.value}</p>
+          <p>
+            {state.password.value.split("").map((char) => (
+              <span>&bull;</span>
+            ))}
+          </p>
+          <p>{state.accountType.value}</p>
+        </div>
+      )}
+    </>
   );
 };

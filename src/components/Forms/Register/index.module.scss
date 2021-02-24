@@ -43,3 +43,22 @@ $carbon--theme: $carbon--theme--g100;
 .passwordInputContainer {
   position: relative;
 }
+
+.formSuccessDetails {
+  border-left: 2px solid #538bf7;
+  color: grey;
+}
+
+.formSuccessEditButton {
+  border: none;
+  background-color: transparent;
+}
+
+.formSuccessEditButton svg {
+  stroke: #538bf7;
+  fill: #538bf7;
+  position: relative;
+  top: -10px;
+  left: 500px;
+  z-index: 999;
+}
