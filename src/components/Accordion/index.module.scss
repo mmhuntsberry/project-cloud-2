@@ -1,46 +1,46 @@
-// @use 'src/App' as theme;
 @import 'carbon-components/scss/globals/scss/typography';
+@import '@carbon/themes/scss/themes';
+
+$carbon--theme: $carbon--theme--g100;
+@include carbon--theme();
 
 .accordionButton {
   display: flex;
-  max-width: 600px;
   width: 100%;
   height: 50px;
-  background-color: #262626;
-  color: white;
+  background-color: $ui-01;
+  color: $text-01;
   border: none;
-  border-left: 2px solid #538bf7;
+  border-left: 2px solid $interactive-04;
   text-align: left;
   align-items: center;
   gap: 8px;
 }
 
-// .accordionButtonIcon {
-//   fill: white;
-//   width: 16px;
-//   fill: blue;
-//   background-color: blue;
-//   stroke: blue;
-// }
-
 .accordionBody {
-  max-width: 600px;
-  background-color: #262626;
+  background-color: $ui-01;
   overflow: hidden;
   width: 100%;
 }
 
 .accordionButtonIcon {
-  fill: transparent;
   width: 16px;
-  stroke: white;
   stroke-width: 8;
-  margin-left: 8px;
+  margin-left: $spacing-03;
+}
+
+.accordionButtonIconIdle {
+  fill: transparent;
+  stroke: $text-01;
+}
+
+.accordionButtonIconActive {
+  fill: $interactive-04;
 }
 
 .accordionButtonIconComplete {
-  stroke: #538bf7;
-  fill: #538bf7;
+  fill: $interactive-04;
+  width: 20px;
 }
 
 .accordionButtonText {
@@ -48,9 +48,9 @@
 }
 
 .accordionContainer {
-  margin-bottom: 12px;
+  margin-bottom: $spacing-04;
   position: relative;
-  max-width: 600px;
+  max-width: 800px;
   display: grid;
 }
 
@@ -58,12 +58,12 @@
   border: none;
   background-color: transparent;
   position: absolute;
-  top: 16px;
-  right: 10px;
+  top: $spacing-05;
+  right: $spacing-04;
   cursor: pointer;
 }
 
 .formSuccessEditButton svg {
-  stroke: #538bf7;
-  fill: #538bf7;
+  stroke: $interactive-04;
+  fill: $interactive-04;
 }

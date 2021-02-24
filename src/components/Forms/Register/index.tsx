@@ -149,6 +149,8 @@ export const Register = () => {
             </RadioButtonGroup>
           </FormGroup>
 
+          {/* TODO Maybe this button can  toggle the accordion closed */}
+          {/* Should also toggle  open next component */}
           <Button
             disabled={
               email.success === true && password.success === true ? false : true
