@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import {
   Accordion,
@@ -19,109 +19,110 @@ import styles from "./index.module.scss";
 import isEmail from "validator/es/lib/isEmail";
 import { Validation } from "../../Validation";
 import { ValidationTooltip } from "../../ValidationTooltip";
+import { RegisterContext } from "../../../contexts/RegisterContext";
 
 import { buildPasswordConstraints } from "../../../utils";
 import { strict } from "node:assert";
 
-const initialState = {
-  email: {
-    value: "",
-    hasError: false,
-    error: "",
-    loading: false,
-    success: false,
-  },
-  password: {
-    value: "",
-    hasError: false,
-    error: "",
-    loading: false,
-    success: false,
-  },
-  accountType: {
-    value: "company",
-  },
-  isFormValid: {
-    success: false,
-  },
-  // error: "",
-  // isLoading: false,
-  // isLoggedIn: false,
-};
+// const initialState = {
+//   email: {
+//     value: "",
+//     hasError: false,
+//     error: "",
+//     loading: false,
+//     success: false,
+//   },
+//   password: {
+//     value: "",
+//     hasError: false,
+//     error: "",
+//     loading: false,
+//     success: false,
+//   },
+//   accountType: {
+//     value: "company",
+//   },
+//   isFormValid: {
+//     success: false,
+//   },
+//   // error: "",
+//   // isLoading: false,
+//   // isLoggedIn: false,
+// };
 
-interface LoginState {
-  email: {
-    value: string;
-    hasError: boolean;
-    error: string;
-    loading: boolean;
-    success: boolean;
-  };
-  password: {
-    value: string;
-    hasError: boolean;
-    error: string;
-    loading: boolean;
-    success: boolean;
-  };
-  accountType: {
-    value: string;
-  };
-  isFormValid: {
-    success: boolean;
-  };
-  // error: string;
-  // isLoading: boolean;
-  // isLoggedIn: boolean;
-}
+// interface LoginState {
+//   email: {
+//     value: string;
+//     hasError: boolean;
+//     error: string;
+//     loading: boolean;
+//     success: boolean;
+//   };
+//   password: {
+//     value: string;
+//     hasError: boolean;
+//     error: string;
+//     loading: boolean;
+//     success: boolean;
+//   };
+//   accountType: {
+//     value: string;
+//   };
+//   isFormValid: {
+//     success: boolean;
+//   };
+//   // error: string;
+//   // isLoading: boolean;
+//   // isLoggedIn: boolean;
+// }
 
-type LoginAction =
-  | {
-      type: "UPDATE_INPUT";
-      field: string;
-      payload: string;
-      hasError: boolean;
-      error: string;
-      loading: boolean;
-      success: boolean;
-    }
-  | {
-      type: "LOADING";
-      field: string;
-      payload: string;
-      hasError: boolean;
-      error: string;
-      loading: boolean;
-      success: boolean;
-    }
-  | {
-      type: "ACCOUNT_TYPE";
-      field: string;
-      payload: string;
-    }
-  | {
-      type: "FIELD_SUCCESS";
-      field: string;
-      payload: string;
-      hasError: boolean;
-      error: string;
-      loading: boolean;
-      success: boolean;
-    }
-  | {
-      type: "FORM_SUCCESS";
-      field: string;
-      success: boolean;
-    }
-  | {
-      type: "ERROR";
-      field: string;
-      payload: string;
-      hasError: boolean;
-      error: string;
-      loading: boolean;
-      success: boolean;
-    };
+// type LoginAction =
+//   | {
+//       type: "UPDATE_INPUT";
+//       field: string;
+//       payload: string;
+//       hasError: boolean;
+//       error: string;
+//       loading: boolean;
+//       success: boolean;
+//     }
+//   | {
+//       type: "LOADING";
+//       field: string;
+//       payload: string;
+//       hasError: boolean;
+//       error: string;
+//       loading: boolean;
+//       success: boolean;
+//     }
+//   | {
+//       type: "ACCOUNT_TYPE";
+//       field: string;
+//       payload: string;
+//     }
+//   | {
+//       type: "FIELD_SUCCESS";
+//       field: string;
+//       payload: string;
+//       hasError: boolean;
+//       error: string;
+//       loading: boolean;
+//       success: boolean;
+//     }
+//   | {
+//       type: "FORM_SUCCESS";
+//       field: string;
+//       success: boolean;
+//     }
+//   | {
+//       type: "ERROR";
+//       field: string;
+//       payload: string;
+//       hasError: boolean;
+//       error: string;
+//       loading: boolean;
+//       success: boolean;
+//     };
 
 // type LoginAction = {
 //   type: "UPDATE_INPUT";
@@ -139,113 +140,126 @@ type LoginAction =
 //   error: string;
 // }
 
-const reducer = (state: LoginState, action: LoginAction) => {
-  switch (action.type) {
-    case "UPDATE_INPUT":
-      return {
-        ...state,
-        [action.field]: {
-          value: action.payload,
-          hasError: action.hasError,
-          error: action.error,
-          loading: action.loading,
-          success: action.success,
-        },
-      };
-    case "LOADING":
-      return {
-        ...state,
-        [action.field]: {
-          field: action.field,
-          value: action.payload,
-          hasError: action.hasError,
-          error: action.error,
-          loading: action.loading,
-          success: action.success,
-        },
-      };
-    case "ACCOUNT_TYPE":
-      return {
-        ...state,
-        [action.field]: {
-          field: action.field,
-          value: action.payload,
-        },
-      };
-    case "FIELD_SUCCESS":
-      return {
-        ...state,
-        [action.field]: {
-          field: action.field,
-          value: action.payload,
-          hasError: action.hasError,
-          error: action.error,
-          loading: action.loading,
-          success: action.success,
-        },
-      };
-    case "FORM_SUCCESS":
-      return {
-        ...state,
-        [action.field]: {
-          success: action.success,
-        },
-      };
-    case "ERROR":
-      return {
-        ...state,
-        [action.field]: {
-          field: action.field,
-          value: action.payload,
-          hasError: action.hasError,
-          error: action.error,
-          loading: action.loading,
-          success: action.success,
-        },
-      };
-    // case "login":
-    //   return {
-    //     ...state,
-    //     isLoading: true,
-    //     error: "",
-    //   };
-    // case "success":
-    //   return {
-    //     ...state,
-    //     isLoggedIn: true,
-    //   };
-    // case "error":
-    //   return {
-    //     ...state,
-    //     error: "Incorrect email or password!",
-    //     isLoading: false,
-    //     email: "",
-    //     password: "",
-    //   };
-    default:
-      return state;
-  }
-};
+// const reducer = (state: LoginState, action: LoginAction) => {
+//   switch (action.type) {
+//     case "UPDATE_INPUT":
+//       return {
+//         ...state,
+//         [action.field]: {
+//           value: action.payload,
+//           hasError: action.hasError,
+//           error: action.error,
+//           loading: action.loading,
+//           success: action.success,
+//         },
+//       };
+//     case "LOADING":
+//       return {
+//         ...state,
+//         [action.field]: {
+//           field: action.field,
+//           value: action.payload,
+//           hasError: action.hasError,
+//           error: action.error,
+//           loading: action.loading,
+//           success: action.success,
+//         },
+//       };
+//     case "ACCOUNT_TYPE":
+//       return {
+//         ...state,
+//         [action.field]: {
+//           field: action.field,
+//           value: action.payload,
+//         },
+//       };
+//     case "FIELD_SUCCESS":
+//       return {
+//         ...state,
+//         [action.field]: {
+//           field: action.field,
+//           value: action.payload,
+//           hasError: action.hasError,
+//           error: action.error,
+//           loading: action.loading,
+//           success: action.success,
+//         },
+//       };
+//     case "FORM_SUCCESS":
+//       return {
+//         ...state,
+//         [action.field]: {
+//           success: action.success,
+//         },
+//       };
+//     case "ERROR":
+//       return {
+//         ...state,
+//         [action.field]: {
+//           field: action.field,
+//           value: action.payload,
+//           hasError: action.hasError,
+//           error: action.error,
+//           loading: action.loading,
+//           success: action.success,
+//         },
+//       };
+//     // case "login":
+//     //   return {
+//     //     ...state,
+//     //     isLoading: true,
+//     //     error: "",
+//     //   };
+//     // case "success":
+//     //   return {
+//     //     ...state,
+//     //     isLoggedIn: true,
+//     //   };
+//     // case "error":
+//     //   return {
+//     //     ...state,
+//     //     error: "Incorrect email or password!",
+//     //     isLoading: false,
+//     //     email: "",
+//     //     password: "",
+//     //   };
+//     default:
+//       return state;
+//   }
+// };
 
 export const Register = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const passwordConstraints = buildPasswordConstraints(state.password.value);
+  const context = useContext(RegisterContext);
+  const {
+    email,
+    password,
+    isFormValid,
+    accountType,
+    updateInput,
+    checkError,
+    fieldSuccess,
+    setLoading,
+    updateAccountType,
+    formSuccess,
+    formEdit,
+  } = context;
+  // const [state, dispatch] = useReducer(reducer, initialState);
+  const passwordConstraints = buildPasswordConstraints(password.value);
   const [isOpen, setIsOpen] = useState(false);
 
   const history = useHistory();
 
-  const { email } = state;
   // const { email, password, error } = state;
 
   useEffect(() => {
-    console.log(state.email);
-    console.log(state.password);
-    console.log(state);
+    console.log(email);
+    console.log(password);
+    console.log(context);
     // console.log(JSON.stringify(state, null, 4));
-  }, [state, isOpen]);
+  }, [isOpen]);
 
   const renderStatus = () => {
-    const { loading, success } = state.email;
+    const { loading, success } = email;
 
     if (loading) {
       return <InlineLoading className={`${styles.inlineLoading}`} />;
@@ -271,7 +285,7 @@ export const Register = () => {
 
   return (
     <>
-      {!state.isFormValid.success ? (
+      {!isFormValid.success ? (
         <Form onSubmit={onSubmit} className={styles.formContainer}>
           <div className={styles.formInputContainer}>
             <TextInput
@@ -282,50 +296,54 @@ export const Register = () => {
               size="xl"
               light={true}
               placeholder="Enter email"
-              invalid={state.email.hasError}
-              onChange={(evt) =>
-                dispatch({
-                  type: "UPDATE_INPUT",
-                  field: evt.target.name,
-                  payload: evt.target.value,
-                  hasError: false,
-                  error: "",
-                  loading: false,
-                  success: false,
-                })
+              invalid={email.hasError}
+              onChange={
+                updateInput
+                // dispatch({
+                //   type: "UPDATE_INPUT",
+                //   field: evt.target.name,
+                //   payload: evt.target.value,
+                //   hasError: false,
+                //   error: "",
+                //   loading: false,
+                //   success: false,
+                // })
               }
               onBlur={(evt) => {
-                if (!isEmail(state.email.value)) {
-                  return dispatch({
-                    type: "ERROR",
-                    field: "email",
-                    payload: evt.target.value,
-                    hasError: true,
-                    error: "Must be a valid email addresss.",
-                    loading: false,
-                    success: false,
-                  });
+                if (!isEmail(email.value)) {
+                  return checkError(evt);
+                  // return dispatch({
+                  //   type: "ERROR",
+                  //   field: "email",
+                  //   payload: evt.target.value,
+                  //   hasError: true,
+                  //   error: "Must be a valid email addresss.",
+                  //   loading: false,
+                  //   success: false,
+                  // });
                 }
                 setTimeout(() => {
-                  dispatch({
-                    type: "FIELD_SUCCESS",
-                    field: "email",
-                    payload: evt.target.value,
-                    hasError: false,
-                    error: "",
-                    loading: false,
-                    success: true,
-                  });
+                  fieldSuccess(evt);
+                  // dispatch({
+                  //   type: "FIELD_SUCCESS",
+                  //   field: "email",
+                  //   payload: evt.target.value,
+                  //   hasError: false,
+                  //   error: "",
+                  //   loading: false,
+                  //   success: true,
+                  // });
                 }, 1000);
-                dispatch({
-                  type: "LOADING",
-                  field: "email",
-                  payload: evt.target.value,
-                  hasError: false,
-                  error: "",
-                  loading: true,
-                  success: false,
-                });
+                // dispatch({
+                //   type: "LOADING",
+                //   field: "email",
+                //   payload: evt.target.value,
+                //   hasError: false,
+                //   error: "",
+                //   loading: true,
+                //   success: false,
+                // });
+                setLoading(evt);
               }}
               value={email.value}
             />
@@ -347,43 +365,45 @@ export const Register = () => {
 
                 if (passwordConstraints.some(({ constraint }) => !constraint)) {
                   console.log("INSIDE OF IT");
-                  return dispatch({
-                    type: "ERROR",
-                    field: "password",
-                    payload: evt.target.value,
-                    hasError: true,
-                    error: "",
-                    loading: false,
-                    success: false,
-                  });
+                  // return dispatch({
+                  //   type: "ERROR",
+                  //   field: "password",
+                  //   payload: evt.target.value,
+                  //   hasError: true,
+                  //   error: "",
+                  //   loading: false,
+                  //   success: false,
+                  // });
+                  return checkError(evt);
                 }
-
-                dispatch({
-                  type: "FIELD_SUCCESS",
-                  field: "password",
-                  payload: evt.target.value,
-                  hasError: false,
-                  error: "",
-                  loading: false,
-                  success: true,
-                });
+                fieldSuccess(evt);
+                // dispatch({
+                //   type: "FIELD_SUCCESS",
+                //   field: "password",
+                //   payload: evt.target.value,
+                //   hasError: false,
+                //   error: "",
+                //   loading: false,
+                //   success: true,
+                // });
               }}
               onChange={(evt) =>
-                dispatch({
-                  type: "UPDATE_INPUT",
-                  field: evt.target.name,
-                  payload: evt.target.value,
-                  hasError: false,
-                  error: "",
-                  loading: false,
-                  success: false,
-                })
+                // dispatch({
+                //   type: "UPDATE_INPUT",
+                //   field: evt.target.name,
+                //   payload: evt.target.value,
+                //   hasError: false,
+                //   error: "",
+                //   loading: false,
+                //   success: false,
+                // })
+                updateInput(evt)
               }
-              value={state.password.value}
+              value={password.value}
             />
             <Validation
               constraints={passwordConstraints}
-              password={state.password.value}
+              password={password.value}
             />
             <ValidationTooltip
               constraints={passwordConstraints}
@@ -396,14 +416,16 @@ export const Register = () => {
               className={styles.radioButtonGroup}
               defaultSelected="company"
               name="accountType"
-              valueSelected={state.accountType.value}
+              valueSelected={accountType.value}
               orientation="horizontal"
               onChange={(evt) => {
-                dispatch({
-                  type: "ACCOUNT_TYPE",
-                  field: "accountType",
-                  payload: String(evt),
-                });
+                // dispatch({
+                //   type: "ACCOUNT_TYPE",
+                //   field: "accountType",
+                //   payload: String(evt),
+                // });
+                // TODO FIX
+                // updateAccountType(evt);
               }}
             >
               <RadioButton
@@ -421,17 +443,16 @@ export const Register = () => {
 
           <Button
             disabled={
-              state.email.success === true && state.password.success === true
-                ? false
-                : true
+              email.success === true && password.success === true ? false : true
             }
             className={styles.formButton}
             onClick={() => {
-              dispatch({
-                type: "FORM_SUCCESS",
-                field: "isFormValid",
-                success: true,
-              });
+              // dispatch({
+              //   type: "FORM_SUCCESS",
+              //   field: "isFormValid",
+              //   success: true,
+              // });
+              formSuccess();
             }}
           >
             Next
@@ -448,22 +469,23 @@ export const Register = () => {
           <button
             className={styles.formSuccessEditButton}
             onClick={() => {
-              dispatch({
-                type: "FORM_SUCCESS",
-                field: "isFormValid",
-                success: false,
-              });
+              formEdit();
+              // dispatch({
+              //   type: "FORM_SUCCESS",
+              //   field: "isFormValid",
+              //   success: false,
+              // });
             }}
           >
             <Edit20 />
           </button>
-          <p>{state.email.value}</p>
+          <p>{email.value}</p>
           <p>
-            {state.password.value.split("").map((char) => (
+            {password.value.split("").map((char) => (
               <span>&bull;</span>
             ))}
           </p>
-          <p>{state.accountType.value}</p>
+          <p>{accountType.value}</p>
         </div>
       )}
     </>
