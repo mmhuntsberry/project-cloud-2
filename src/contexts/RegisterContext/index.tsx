@@ -25,13 +25,9 @@ const initialState = {
   checkError: (evt: React.ChangeEvent<HTMLInputElement>): void => {},
   fieldSuccess: (evt: React.ChangeEvent<HTMLInputElement>): void => {},
   setLoading: (evt: React.ChangeEvent<HTMLInputElement>): void => {},
-  updateAccountType: (evt: React.ChangeEvent<HTMLInputElement>): void => {},
+  updateAccountType: (val: number | string): void => {},
   formSuccess: (): void => {},
   formEdit: (): void => {},
-
-  // error: "",
-  // isLoading: false,
-  // isLoggedIn: false,
 };
 
 const reducer = (state: LoginState, action: LoginAction) => {
@@ -105,25 +101,6 @@ const reducer = (state: LoginState, action: LoginAction) => {
           success: action.success,
         },
       };
-    // case "login":
-    //   return {
-    //     ...state,
-    //     isLoading: true,
-    //     error: "",
-    //   };
-    // case "success":
-    //   return {
-    //     ...state,
-    //     isLoggedIn: true,
-    //   };
-    // case "error":
-    //   return {
-    //     ...state,
-    //     error: "Incorrect email or password!",
-    //     isLoading: false,
-    //     email: "",
-    //     password: "",
-    //   };
     default:
       return state;
   }
@@ -203,9 +180,6 @@ interface LoginState {
   isFormValid: {
     success: boolean;
   };
-  // error: string;
-  // isLoading: boolean;
-  // isLoggedIn: boolean;
 }
 
 export const RegisterContext = createContext(initialState);
