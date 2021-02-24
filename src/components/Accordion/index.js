@@ -10,9 +10,7 @@ export const Accordion = ({ children }) => {
     accordionButton,
   } = styles;
 
-  useEffect(() => {
-    console.log(isToggled);
-  });
+  useEffect(() => {});
 
   return (
     <>
@@ -23,7 +21,7 @@ export const Accordion = ({ children }) => {
         <svg className={`${accordionButtonIcon}`} viewBox="0 0 100 100">
           <circle cx="50" cy="50" r="40" />
         </svg>
-        Account information
+        <h4 className={styles.accordionButtonText}>Account information</h4>
       </button>
       <AnimatePresence>
         {isToggled && (

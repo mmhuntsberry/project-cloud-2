@@ -1,5 +1,3 @@
-@use '@carbon/themes/scss/themes';
-
 // General
 
 .u-margin-0 {
@@ -8,80 +6,84 @@
 
 // Spacing Top
 .u-margin-t-01 {
-  margin-top: themes.$spacing-01;
+  margin-top: $spacing-01;
 }
 
 .u-margin-t-02 {
-  margin-top: themes.$spacing-02;
+  margin-top: $spacing-02;
 }
 
 .u-margin-t-03 {
-  margin-top: themes.$spacing-03;
+  margin-top: $spacing-03;
 }
 
 .u-margin-t-04 {
-  margin-top: themes.$spacing-04;
+  margin-top: $spacing-04;
 }
 
 .u-margin-t-05 {
-  margin-top: themes.$spacing-05;
+  margin-top: $spacing-05;
 }
 
 .u-margin-t-06 {
-  margin-top: themes.$spacing-06;
+  margin-top: $spacing-06;
 }
 
 .u-margin-t-07 {
-  margin-top: themes.$spacing-07;
+  margin-top: $spacing-07;
 }
 
 .u-margin-t-08 {
-  margin-top: themes.$spacing-08;
+  margin-top: $spacing-08;
+}
+
+.u-margin-t-09 {
+  margin-top: $spacing-09;
 }
 
 // Spacing Right
 .u-margin-r-02 {
-  margin-right: themes.$spacing-02;
+  margin-right: $spacing-02;
 }
 .u-margin-r-03 {
-  margin-right: themes.$spacing-03;
+  margin-right: $spacing-03;
 }
 .u-margin-r-04 {
-  margin-right: themes.$spacing-04;
+  margin-right: $spacing-04;
 }
 
 // Spacing Down
 .u-margin-b-01 {
-  margin-bottom: themes.$spacing-01;
+  margin-bottom: $spacing-01;
 }
 
 .u-margin-b-02 {
-  margin-bottom: themes.$spacing-02;
+  margin-bottom: $spacing-02;
 }
 
 .u-margin-b-03 {
-  margin-bottom: themes.$spacing-03;
+  margin-bottom: $spacing-03;
 }
 
 .u-margin-b-04 {
-  margin-bottom: themes.$spacing-04;
+  margin-bottom: $spacing-04;
 }
 .u-margin-b-05 {
-  margin-bottom: themes.$spacing-05;
+  margin-bottom: $spacing-05;
 }
 
 .u-margin-b-06 {
-  margin-bottom: themes.$spacing-06;
+  margin-bottom: $spacing-06;
 }
 
 .u-margin-b-09 {
-  margin-bottom: themes.$spacing-09;
+  margin-bottom: $spacing-09;
 }
 
 // Spacing Left
 .u-margin-l-02 {
-  margin-left: themes.$spacing-02;
+  margin-left: $spacing-02;
 }
 .u-margin-l-04 {
-  margin-left: themes.$spacing-04;
+  margin-left: $spacing-04;
 }

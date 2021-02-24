@@ -9,11 +9,17 @@ import {
   Button,
   FormGroup,
   RadioButtonGroup,
+  RadioButton,
+  ProgressIndicator,
+  ProgressStep,
 } from "carbon-components-react";
 import { CustomButton } from "../../Buttons";
 import styles from "./index.module.scss";
 import isEmail from "validator/es/lib/isEmail";
-import { RadioButton } from "carbon-components-react/lib/components/RadioButton/RadioButton";
+import { Validation } from "../../Validation";
+import { ValidationTooltip } from "../../ValidationTooltip";
+
+import { buildPasswordConstraints } from "../../../utils";
 
 const initialState = {
   email: {
@@ -184,7 +190,8 @@ const reducer = (state: LoginState, action: LoginAction) => {
 
 export const Register = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  // const [isLoading, setIsLoading] = useState(false);
+  const passwordConstraints = buildPasswordConstraints(state.password.value);
+  const [isOpen, setIsOpen] = useState(false);
 
   const history = useHistory();
 
@@ -192,8 +199,10 @@ export const Register = () => {
   // const { email, password, error } = state;
 
   useEffect(() => {
-    console.log(state.email.loading);
-    console.log(JSON.stringify(state, null, 4));
+    // console.log(state.email);
+    console.log(state.password);
+    console.log("p constraints", passwordConstraints);
+    // console.log(JSON.stringify(state, null, 4));
   }, [state]);
 
   const renderStatus = () => {
@@ -233,7 +242,6 @@ export const Register = () => {
           light={true}
           placeholder="Enter email"
           invalid={state.email.hasError}
-          onClick={() => console.log("hiya")}
           onChange={(evt) =>
             dispatch({
               type: "UPDATE_INPUT",
@@ -282,30 +290,61 @@ export const Register = () => {
         />
         {renderStatus()}
       </div>
-      <div className="u-margin-b-04"></div>
-      <TextInput.PasswordInput
-        id="password"
-        labelText="Password"
-        name="password"
-        light
-        size="xl"
-        onChange={(evt) =>
-          dispatch({
-            type: "UPDATE_INPUT",
-            field: evt.target.name,
-            payload: evt.target.value,
-            hasError: false,
-            error: "",
-            loading: false,
-            success: false,
-          })
-        }
-        value={state.password.value}
-      />
-
+      <div
+        className={`${styles.passwordInputContainer} u-margin-t-06 u-margin-b-04`}
+      >
+        <TextInput.PasswordInput
+          id="password"
+          labelText="Password"
+          name="password"
+          light
+          size="xl"
+          placeholder="Enter password"
+          onFocus={() => setIsOpen(true)}
+          onBlur={(evt) => {
+            setIsOpen(false);
+            // TODO GOAL TO TOGGLE NEXT BUTTON if both email and password don't have errors
+            // if (
+            //   state.password.value.length > 0 &&
+            //   passwordConstraints.forEach(
+            //     ({ constraint }) => constraint === false
+            //   )
+            // ) {
+            //   console.log("INSIDE OF IT");
+            //   return dispatch({
+            //     type: "ERROR",
+            //     field: "password",
+            //     payload: evt.target.value,
+            //     hasError: true,
+            //     error: "",
+            //     loading: false,
+            //     success: false,
+            //   });
+            // }
+          }}
+          onChange={(evt) =>
+            dispatch({
+              type: "UPDATE_INPUT",
+              field: evt.target.name,
+              payload: evt.target.value,
+              hasError: false,
+              error: "",
+              loading: false,
+              success: false,
+            })
+          }
+          value={state.password.value}
+        />
+        <Validation
+          constraints={passwordConstraints}
+          password={state.password.value}
+        />
+        <ValidationTooltip constraints={passwordConstraints} open={isOpen} />
+      </div>
       <div className="u-margin-b-06"></div>
       <FormGroup legendText="">
         <RadioButtonGroup
+          className={styles.radioButtonGroup}
           defaultSelected="company"
           name="account-type"
           valueSelected="company"
@@ -324,7 +363,16 @@ export const Register = () => {
         </RadioButtonGroup>
       </FormGroup>
 
-      <Button className={styles.formButton}>Next</Button>
+      <Button
+        disabled={
+          state.email.success === true && state.password.success === true
+            ? false
+            : true
+        }
+        className={styles.formButton}
+      >
+        Next
+      </Button>
       {/* <CustomButton
         onClick={(evt) => {
           evt.preventDefault();

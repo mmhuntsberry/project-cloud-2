@@ -1,0 +1,38 @@
+@import '@carbon/themes/scss/themes';
+$carbon--theme: $carbon--theme--g100;
+@include carbon--theme();
+
+.passwordIndicator {
+  display: flex;
+  gap: 2px;
+}
+
+.validationNode {
+  width: 25%;
+  height: 2px;
+  background-color: $text-01;
+}
+
+.validationNode.idle:nth-child(1) {
+  background-color: white;
+}
+
+.validationNode.weak:nth-child(1) {
+  background-color: $inverse-support-02;
+}
+
+.validationNode.good:nth-child(-n + 2) {
+  background-color: $inverse-support-02;
+}
+
+.validationNode.better:nth-child(-n + 3) {
+  background-color: $inverse-support-02;
+}
+
+.validationNode.strong:nth-child(-n + 4) {
+  background-color: $inverse-support-02;
+}
+
+.validationNode.strongest:nth-child(-n + 5) {
+  background-color: $inverse-support-02;
+}

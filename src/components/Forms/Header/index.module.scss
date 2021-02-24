@@ -1,0 +1,37 @@
+@import '@carbon/themes/scss/themes';
+$carbon--theme: $carbon--theme--g100;
+@include carbon--theme();
+
+.formHeaderContainer {
+  color: white;
+  margin-bottom: calc(#{$spacing-04} + #{$spacing-09});
+}
+
+.formHeaderIcon {
+  width: 56px;
+  height: 56px;
+  fill: #fff;
+}
+
+.formHeader {
+  color: white;
+}
+
+.formHeaderLabelContainer {
+  display: flex;
+  align-items: baseline;
+}
+
+.formHeaderLabelContainerVerify {
+  margin-top: $spacing-05;
+}
+
+// .form-header__label--margin-right {
+//   margin-right: $spacing-03;
+//   margin-left: 0;
+// }
+
+// .form__label--margin-left {
+//   margin-left: $spacing-02;
+//   margin-right: 0;
+// }
