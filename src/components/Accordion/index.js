@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Edit20 } from "@carbon/icons-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { RegisterContext } from "../../contexts/RegisterContext";
 import styles from "./index.module.scss";
 
-export const Accordion = ({ children }) => {
-  const [isToggled, setIsToggled] = useState(false);
-  const context = useContext(RegisterContext);
-  const { formEdit, isFormValid } = context;
+export const Accordion: React.FC<Props> = ({ children, title, context }) => {
+  const { isFormValid, formEdit, isFormToggled, setIsToggled } = useContext(
+    context
+  );
+  // const [isToggled, setIsToggled] = useState(false);
+
   const {
     accordionButtonIcon,
     accordionButtonIconIdle,
@@ -16,7 +17,9 @@ export const Accordion = ({ children }) => {
     accordionButton,
   } = styles;
 
-  useEffect(() => {}, [isFormValid]);
+  useEffect(() => {
+    console.log("ACCORDION", isFormToggled);
+  }, [isFormToggled]);
 
   const isCompleted = isFormValid.success;
 
@@ -24,7 +27,8 @@ export const Accordion = ({ children }) => {
     <div className={styles.accordionContainer}>
       <button
         className={`${accordionButton}`}
-        onClick={() => setIsToggled(!isToggled)}
+        onClick={() => setIsToggled(!isFormToggled)}
+        // onClick={() => setIsToggled(!isToggled)}
       >
         {/* Swap icons if isFormValid  is successful */}
         {isCompleted ? (
@@ -46,7 +50,7 @@ export const Accordion = ({ children }) => {
           <svg
             className={
               // Swap styles if the accordion is in an open state or not
-              !isToggled
+              !isFormToggled
                 ? `
               ${accordionButtonIcon} ${accordionButtonIconIdle}`
                 : `${accordionButtonIcon} ${accordionButtonIconActive}
@@ -57,7 +61,7 @@ export const Accordion = ({ children }) => {
             <circle cx="50" cy="50" r="40" />
           </svg>
         )}
-        <h4 className={styles.accordionButtonText}>Account information</h4>
+        <h4 className={styles.accordionButtonText}>{title}</h4>
       </button>
 
       {/* Only show the edit button in state of success is true */}
@@ -72,7 +76,8 @@ export const Accordion = ({ children }) => {
         </button>
       )}
       <AnimatePresence>
-        {isToggled && (
+        {isFormToggled && (
+          // {isToggled && (
           <motion.div
             className={styles.accordionBody}
             initial={{ height: 0 }}

@@ -37,7 +37,9 @@ export const Register = () => {
 
   const history = useHistory();
 
-  useEffect(() => {}, [isOpen]);
+  useEffect(() => {
+    console.log("INSIDE REGISTER", isFormValid);
+  }, [isOpen]);
 
   const renderStatus = () => {
     const { loading, success } = email;
@@ -155,11 +157,9 @@ export const Register = () => {
               email.success === true && password.success === true ? false : true
             }
             className={styles.formButton}
-            onClick={() => {
-              formSuccess();
-            }}
+            onClick={formSuccess}
           >
-            Next
+            Next!!!
           </Button>
         </Form>
       ) : (
