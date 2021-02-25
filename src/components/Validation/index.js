@@ -43,17 +43,16 @@ export const Validation = ({ constraints, password }) => {
   const buildValidationProgressBar = (constraints) => {
     return constraints.map((constraint, i) => {
       return (
-        <>
+        <div key={constraint.id}>
           {i < constraints.length - 1 && (
             <div
-              key={constraint.id}
               className={
                 checkScoreAndSetClassName &&
                 `${styles[progressStrengthClassName]} ${styles.validationNode}`
               }
             ></div>
           )}
-        </>
+        </div>
       );
     });
   };

@@ -9,14 +9,14 @@ import {
   RadioButtonGroup,
   RadioButton,
 } from "carbon-components-react";
-import { Edit20 } from "@carbon/icons-react";
-import styles from "./index.module.scss";
 import isEmail from "validator/es/lib/isEmail";
+
 import { Validation } from "../../Validation";
 import { ValidationTooltip } from "../../ValidationTooltip";
 import { RegisterContext } from "../../../contexts/RegisterContext";
-
 import { buildPasswordConstraints } from "../../../utils";
+
+import styles from "./index.module.scss";
 
 export const Register = () => {
   const context = useContext(RegisterContext);
@@ -31,7 +31,6 @@ export const Register = () => {
     setLoading,
     updateAccountType,
     formSuccess,
-    formEdit,
   } = context;
   const passwordConstraints = buildPasswordConstraints(password.value);
   const [isOpen, setIsOpen] = useState(false);

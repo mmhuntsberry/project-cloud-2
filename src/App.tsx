@@ -1,7 +1,6 @@
 // import { Accordion, AccordionItem } from "carbon-components-react";
 import "./App.scss";
 import { Register } from "./components/Forms/Register";
-import styles from "./app.module.scss";
 import { Accordion } from "./components/Accordion";
 import { Header } from "./components/Forms/Header";
 import { RegisterContextProvider } from "./contexts/RegisterContext";
