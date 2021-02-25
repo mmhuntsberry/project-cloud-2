@@ -1,6 +1,7 @@
 import React, { createContext, useReducer } from "react";
 
 const initialState = {
+  name: "verify",
   code: {
     value: "",
     hasError: false,
@@ -126,6 +127,7 @@ type LoginAction =
     };
 
 interface LoginState {
+  name: string;
   code: {
     value: string;
     hasError: boolean;
@@ -146,6 +148,7 @@ export const VerifyContextProvider: React.FC = ({ children }) => {
   return (
     <VerifyContext.Provider
       value={{
+        name: state.name,
         code: {
           value: state.code.value,
           hasError: state.code.hasError,

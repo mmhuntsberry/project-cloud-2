@@ -1,6 +1,7 @@
 import React, { createContext, useReducer, useEffect } from "react";
 
 const initialState = {
+  name: "register",
   email: {
     value: "",
     hasError: false,
@@ -172,6 +173,7 @@ type LoginAction =
     };
 
 interface LoginState {
+  name: string;
   email: {
     value: string;
     hasError: boolean;
@@ -206,6 +208,7 @@ export const RegisterContextProvider: React.FC = ({ children }) => {
   return (
     <RegisterContext.Provider
       value={{
+        name: state.name,
         email: {
           value: state.email.value,
           hasError: state.email.hasError,

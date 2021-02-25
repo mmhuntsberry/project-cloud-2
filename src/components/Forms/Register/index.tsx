@@ -17,6 +17,7 @@ import { RegisterContext } from "../../../contexts/RegisterContext";
 import { buildPasswordConstraints } from "../../../utils";
 
 import styles from "./index.module.scss";
+import { FormContext, FORMSTATUS } from "../../../contexts/FormContext";
 
 export const Register = () => {
   const context = useContext(RegisterContext);
@@ -32,6 +33,7 @@ export const Register = () => {
     updateAccountType,
     formSuccess,
   } = context;
+  const formContext = useContext(FormContext);
   const passwordConstraints = buildPasswordConstraints(password.value);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -157,7 +159,10 @@ export const Register = () => {
               email.success === true && password.success === true ? false : true
             }
             className={styles.formButton}
-            onClick={formSuccess}
+            onClick={() => {
+              formSuccess();
+              formContext.setActiveForm(FORMSTATUS.VERIFY);
+            }}
           >
             Next!!!
           </Button>

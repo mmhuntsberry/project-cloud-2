@@ -4,11 +4,13 @@ import { RegisterContext } from "../../../contexts/RegisterContext";
 
 import styles from "./index.module.scss";
 import { VerifyContext } from "../../../contexts/VerifyContext";
+import { FormContext } from "../../../contexts/FormContext";
 
 export const Verify = () => {
   const context = useContext(RegisterContext);
   const { email } = context;
   const verifyContext = useContext(VerifyContext);
+  const formContext = useContext(FormContext);
   const SECRET: string = "1234567";
 
   useEffect(() => {}, [email, verifyContext]);
@@ -37,9 +39,10 @@ export const Verify = () => {
         <Button
           disabled={verifyContext.code.value !== SECRET}
           className={styles.formButton}
-          onClick={() => {
+          onClick={(evt) => {
             verifyContext.formSuccess();
             verifyContext.setIsToggled(false);
+            formContext.setActiveForm(evt, "register");
           }}
         >
           Next

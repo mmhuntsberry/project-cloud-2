@@ -1,13 +1,19 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { Edit20 } from "@carbon/icons-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { FormContext } from "../../contexts/FormContext";
+
 import styles from "./index.module.scss";
 
 export const Accordion: React.FC<Props> = ({ children, title, context }) => {
-  const { isFormValid, formEdit, isFormToggled, setIsToggled } = useContext(
-    context
-  );
-  // const [isToggled, setIsToggled] = useState(false);
+  const {
+    isFormValid,
+    formEdit,
+    isFormToggled,
+    setIsToggled,
+    name,
+  } = useContext(context);
+  const formContext = useContext(FormContext);
 
   const {
     accordionButtonIcon,
@@ -18,8 +24,12 @@ export const Accordion: React.FC<Props> = ({ children, title, context }) => {
   } = styles;
 
   useEffect(() => {
-    console.log("ACCORDION", isFormToggled);
-  }, [isFormToggled]);
+    console.log(name);
+    if (name === formContext.activeForm) {
+      setIsToggled(true);
+    }
+    console.log(formContext);
+  }, [isFormToggled, formContext.activeForm]);
 
   const isCompleted = isFormValid.success;
 
@@ -28,7 +38,6 @@ export const Accordion: React.FC<Props> = ({ children, title, context }) => {
       <button
         className={`${accordionButton}`}
         onClick={() => setIsToggled(!isFormToggled)}
-        // onClick={() => setIsToggled(!isToggled)}
       >
         {/* Swap icons if isFormValid  is successful */}
         {isCompleted ? (
@@ -70,6 +79,7 @@ export const Accordion: React.FC<Props> = ({ children, title, context }) => {
           className={styles.formSuccessEditButton}
           onClick={() => {
             formEdit();
+            setIsToggled(true);
           }}
         >
           <Edit20 />
