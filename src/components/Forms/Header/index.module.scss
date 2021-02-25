@@ -3,18 +3,18 @@ $carbon--theme: $carbon--theme--g100;
 @include carbon--theme();
 
 .formHeaderContainer {
-  color: white;
+  color: $text-01;
   margin-bottom: calc(#{$spacing-04} + #{$spacing-09});
 }
 
 .formHeaderIcon {
   width: 56px;
   height: 56px;
-  fill: #fff;
+  fill: $text-01;
 }
 
 .formHeader {
-  color: white;
+  color: $text-01;
 }
 
 .formHeaderLabelContainer {
@@ -25,13 +25,3 @@ $carbon--theme: $carbon--theme--g100;
 .formHeaderLabelContainerVerify {
   margin-top: $spacing-05;
 }
-
-// .form-header__label--margin-right {
-//   margin-right: $spacing-03;
-//   margin-left: 0;
-// }
-
-// .form__label--margin-left {
-//   margin-left: $spacing-02;
-//   margin-right: 0;
-// }
