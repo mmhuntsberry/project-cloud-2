@@ -1,9 +1,8 @@
-$carbon--theme: $carbon--theme--g100;
-@include carbon--theme();
+@use '@carbon/themes/scss/themes';
 
 body {
   background-color: #000;
   height: calc(100vh - 50px);
   width: 100vw;
-  color: $text-01;
+  color: themes.$text-01;
 }

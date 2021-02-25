@@ -1,0 +1,27 @@
+@import '@carbon/themes/scss/themes';
+$carbon--theme: $carbon--theme--g100;
+@include carbon--theme();
+
+.formHeaderContainer {
+  color: $text-01;
+  margin-bottom: calc(#{$spacing-04} + #{$spacing-09});
+}
+
+.formHeaderIcon {
+  width: 56px;
+  height: 56px;
+  fill: $text-01;
+}
+
+.formHeader {
+  color: $text-01;
+}
+
+.formHeaderLabelContainer {
+  display: flex;
+  align-items: baseline;
+}
+
+.formHeaderLabelContainerVerify {
+  margin-top: $spacing-05;
+}

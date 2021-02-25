@@ -1,0 +1,36 @@
+@import '@carbon/themes/scss/themes';
+$carbon--theme: $carbon--theme--g100;
+@include carbon--theme();
+
+.passwordTooltip {
+  position: absolute;
+  top: 63px;
+  left: 142px;
+  height: 0;
+  width: 0;
+}
+
+.passwordRequirementContainer {
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  column-gap: $spacing-05;
+  align-items: start;
+  margin-right: $spacing-03;
+  color: $text-01;
+
+  &:not(:last-child) {
+    padding-bottom: $spacing-05;
+  }
+}
+
+.hasLowerCaseSuccess,
+.hasUpperCaseSuccess,
+.hasNumberSuccess,
+.hasLengthSuccess,
+.hasSpecialCharactersSuccess {
+  color: $inverse-support-02;
+}
+
+.hasSpecialCharactersError {
+  color: $text-error;
+}

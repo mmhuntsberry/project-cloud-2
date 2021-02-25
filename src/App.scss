@@ -3,6 +3,13 @@
 @import 'carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint';
 @import 'carbon-components/scss/globals/scss/typography';
 @import 'carbon-components/scss/globals/scss/vars';
+@import '@carbon/themes/scss/themes';
 
-//
+$carbon--theme: $carbon--theme--g100;
+@include carbon--theme($carbon--theme--g100);
+@import './styles/base/g100';
 @import './styles/base/base';
+@import './styles/utilities/margins';
+@import './styles/utilities/paddings';
+
+// Use the gray 100 theme
