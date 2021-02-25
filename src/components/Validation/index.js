@@ -43,7 +43,8 @@ export const Validation = ({ constraints, password }) => {
   const buildValidationProgressBar = (constraints) => {
     return constraints.map((constraint, i) => {
       return (
-        <div key={constraint.id}>
+        // Look in to adding a key to remove warning.
+        <>
           {i < constraints.length - 1 && (
             <div
               className={
@@ -52,7 +53,7 @@ export const Validation = ({ constraints, password }) => {
               }
             ></div>
           )}
-        </div>
+        </>
       );
     });
   };

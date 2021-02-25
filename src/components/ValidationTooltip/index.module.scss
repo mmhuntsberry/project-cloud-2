@@ -4,11 +4,10 @@ $carbon--theme: $carbon--theme--g100;
 
 .passwordTooltip {
   position: absolute;
-  top: 60px;
-  left: 135px;
-  height: 1px;
-  width: 1px;
-  // background-color: $interactive-02;
+  top: 63px;
+  left: 142px;
+  height: 0;
+  width: 0;
 }
 
 .passwordRequirementContainer {
@@ -17,10 +16,10 @@ $carbon--theme: $carbon--theme--g100;
   column-gap: $spacing-05;
   align-items: start;
   margin-right: $spacing-03;
-  color: white;
+  color: $text-01;
 
   &:not(:last-child) {
-    padding-bottom: 16px;
+    padding-bottom: $spacing-05;
   }
 }
 
@@ -33,5 +32,5 @@ $carbon--theme: $carbon--theme--g100;
 }
 
 .hasSpecialCharactersError {
-  color: red;
+  color: $text-error;
 }

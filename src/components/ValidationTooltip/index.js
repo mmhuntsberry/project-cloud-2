@@ -2,6 +2,8 @@ import React from "react";
 import { Tooltip } from "carbon-components-react";
 import styles from "./index.module.scss";
 
+import "./overrides.scss";
+
 export const ValidationTooltip = ({
   constraints,
   direction = "bottom",

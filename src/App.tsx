@@ -1,6 +1,7 @@
 // import { Accordion, AccordionItem } from "carbon-components-react";
 import "./App.scss";
 import { Register } from "./components/Forms/Register";
+import { Verify } from "./components/Forms/Verify";
 import { Accordion } from "./components/Accordion";
 import { Header } from "./components/Forms/Header";
 import { RegisterContextProvider } from "./contexts/RegisterContext";
@@ -19,7 +20,7 @@ function App() {
               </Accordion>
 
               <Accordion>
-                <Register />
+                <Verify />
               </Accordion>
 
               <Accordion>

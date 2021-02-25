@@ -1,0 +1,7 @@
+@import '@carbon/themes/scss/themes';
+$carbon--theme: $carbon--theme--g100;
+@include carbon--theme();
+
+.bx--tooltip .bx--tooltip__caret {
+  border-bottom: 0.42969rem solid var(--cds-inverse-02, $ui-02);
+}

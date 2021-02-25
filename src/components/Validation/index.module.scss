@@ -10,11 +10,7 @@ $carbon--theme: $carbon--theme--g100;
 .validationNode {
   width: 25%;
   height: 2px;
-  background-color: $text-01;
-}
-
-.validationNode.idle:nth-child(1) {
-  background-color: white;
+  background-color: $interactive-03;
 }
 
 .validationNode.weak:nth-child(1) {
