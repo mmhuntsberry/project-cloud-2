@@ -1,5 +1,5 @@
 // import { Accordion, AccordionItem } from "carbon-components-react";
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import "./App.scss";
 import { Register } from "./components/Forms/Register";
 import { Verify } from "./components/Forms/Verify";

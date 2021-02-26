@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { Form, TextInput, Button, Link } from "carbon-components-react";
 import { RegisterContext } from "../../../contexts/RegisterContext";
 
 import styles from "./index.module.scss";
 import { VerifyContext } from "../../../contexts/VerifyContext";
-import { FormContext } from "../../../contexts/FormContext";
+import { FormContext, FORMSTATUS } from "../../../contexts/FormContext";
 
 export const Verify = () => {
   const context = useContext(RegisterContext);
@@ -42,7 +42,7 @@ export const Verify = () => {
           onClick={(evt) => {
             verifyContext.formSuccess();
             verifyContext.setIsToggled(false);
-            formContext.setActiveForm(evt, "register");
+            formContext.setActiveForm(FORMSTATUS.REGISTER);
           }}
         >
           Next
