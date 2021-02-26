@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect } from "react";
+import React, { useReducer } from "react";
 
 export enum FORMSTATUS {
   REGISTER = "register",
@@ -37,10 +37,6 @@ const reducer = (state: FormState, action: FormAction) => {
 
 export const FormContextProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  useEffect(() => {
-    console.log(state.activeForm);
-  }, [state]);
 
   return (
     <FormContext.Provider

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import {
   Form,
@@ -36,12 +36,7 @@ export const Register = () => {
   const formContext = useContext(FormContext);
   const passwordConstraints = buildPasswordConstraints(password.value);
   const [isOpen, setIsOpen] = useState(false);
-
   const history = useHistory();
-
-  useEffect(() => {
-    console.log("INSIDE REGISTER", isFormValid);
-  }, [isOpen]);
 
   const renderStatus = () => {
     const { loading, success } = email;
@@ -164,7 +159,7 @@ export const Register = () => {
               formContext.setActiveForm(FORMSTATUS.VERIFY);
             }}
           >
-            Next!!!
+            Next
           </Button>
         </Form>
       ) : (

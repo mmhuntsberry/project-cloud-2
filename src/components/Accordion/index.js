@@ -24,11 +24,9 @@ export const Accordion: React.FC<Props> = ({ children, title, context }) => {
   } = styles;
 
   useEffect(() => {
-    console.log(name);
     if (name === formContext.activeForm) {
       setIsToggled(true);
     }
-    console.log(formContext);
   }, [isFormToggled, formContext, name]);
 
   const isCompleted = isFormValid.success;
@@ -37,7 +35,8 @@ export const Accordion: React.FC<Props> = ({ children, title, context }) => {
     <div className={styles.accordionContainer}>
       <button
         className={`${accordionButton}`}
-        onClick={() => setIsToggled(!isFormToggled)}
+        // TODO Remove button completely
+        // onClick={() => setIsToggled(!isFormToggled)}
       >
         {/* Swap icons if isFormValid  is successful */}
         {isCompleted ? (
@@ -87,7 +86,6 @@ export const Accordion: React.FC<Props> = ({ children, title, context }) => {
       )}
       <AnimatePresence>
         {isFormToggled && (
-          // {isToggled && (
           <motion.div
             className={styles.accordionBody}
             initial={{ height: 0 }}

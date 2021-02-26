@@ -201,10 +201,6 @@ export const RegisterContext = createContext(initialState);
 
 export const RegisterContextProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  useEffect(() => {
-    console.log("INSIDE OF REGISTER CONTEXT", state.isFormValid);
-  }, [state]);
   return (
     <RegisterContext.Provider
       value={{
