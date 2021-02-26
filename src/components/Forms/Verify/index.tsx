@@ -43,7 +43,7 @@ export const Verify = () => {
           onClick={(evt) => {
             verifyContext.formSuccess();
             verifyContext.setIsToggled(false);
-            formContext.setActiveForm(FORMSTATUS.REGISTER);
+            formContext.setActiveForm(FORMSTATUS.PAYMENT);
           }}
         >
           Next
