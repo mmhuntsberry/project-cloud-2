@@ -3,20 +3,17 @@ import { Form, TextInput, Button, Link } from "carbon-components-react";
 import { RegisterContext } from "../../../contexts/RegisterContext";
 
 import styles from "./index.module.scss";
+import { VerifyContext } from "../../../contexts/VerifyContext";
+import { FormContext } from "../../../contexts/FormContext";
 
 export const Verify = () => {
   const context = useContext(RegisterContext);
   const { email } = context;
-  const [code, setCode] = useState("");
+  const verifyContext = useContext(VerifyContext);
+  const formContext = useContext(FormContext);
   const SECRET: string = "1234567";
 
-  useEffect(() => {
-    console.log("EMAIL", email);
-  }, [code, email]);
-
-  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setCode(evt.target.value);
-  };
+  useEffect(() => {}, [email, verifyContext]);
 
   return (
     <>
@@ -33,11 +30,21 @@ export const Verify = () => {
           placeholder="ex. 1234567"
           type="text"
           size="xl"
+          name="code"
           light
-          onChange={handleChange}
+          value={verifyContext.code.value}
+          onChange={verifyContext.updateInput}
         />
 
-        <Button disabled={code !== SECRET} className={styles.formButton}>
+        <Button
+          disabled={verifyContext.code.value !== SECRET}
+          className={styles.formButton}
+          onClick={(evt) => {
+            verifyContext.formSuccess();
+            verifyContext.setIsToggled(false);
+            formContext.setActiveForm(evt, "register");
+          }}
+        >
           Next
         </Button>
         <div className={`${styles.formLabelContainer} u-margin-t-05`}>

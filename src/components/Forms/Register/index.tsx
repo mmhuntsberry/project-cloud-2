@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import {
   Form,
@@ -17,6 +17,7 @@ import { RegisterContext } from "../../../contexts/RegisterContext";
 import { buildPasswordConstraints } from "../../../utils";
 
 import styles from "./index.module.scss";
+import { FormContext, FORMSTATUS } from "../../../contexts/FormContext";
 
 export const Register = () => {
   const context = useContext(RegisterContext);
@@ -32,12 +33,10 @@ export const Register = () => {
     updateAccountType,
     formSuccess,
   } = context;
+  const formContext = useContext(FormContext);
   const passwordConstraints = buildPasswordConstraints(password.value);
   const [isOpen, setIsOpen] = useState(false);
-
   const history = useHistory();
-
-  useEffect(() => {}, [isOpen]);
 
   const renderStatus = () => {
     const { loading, success } = email;
@@ -157,6 +156,7 @@ export const Register = () => {
             className={styles.formButton}
             onClick={() => {
               formSuccess();
+              formContext.setActiveForm(FORMSTATUS.VERIFY);
             }}
           >
             Next
