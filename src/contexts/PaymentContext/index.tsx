@@ -23,6 +23,48 @@ const initialState = {
     loading: false,
     success: false,
   },
+  firstname: {
+    value: "",
+    hasError: false,
+    error: "",
+    loading: false,
+    success: false,
+  },
+  lastname: {
+    value: "",
+    hasError: false,
+    error: "",
+    loading: false,
+    success: false,
+  },
+  address01: {
+    value: "",
+    hasError: false,
+    error: "",
+    loading: false,
+    success: false,
+  },
+  address02: {
+    value: "",
+    hasError: false,
+    error: "",
+    loading: false,
+    success: false,
+  },
+  city: {
+    value: "",
+    hasError: false,
+    error: "",
+    loading: false,
+    success: false,
+  },
+  zipcode: {
+    value: "",
+    hasError: false,
+    error: "",
+    loading: false,
+    success: false,
+  },
   isFormValid: {
     success: false,
   },
@@ -198,6 +240,48 @@ interface LoginState {
     loading: boolean;
     success: boolean;
   };
+  firstname: {
+    value: string;
+    hasError: boolean;
+    error: string;
+    loading: boolean;
+    success: boolean;
+  };
+  lastname: {
+    value: string;
+    hasError: boolean;
+    error: string;
+    loading: boolean;
+    success: boolean;
+  };
+  address01: {
+    value: string;
+    hasError: boolean;
+    error: string;
+    loading: boolean;
+    success: boolean;
+  };
+  address02: {
+    value: string;
+    hasError: boolean;
+    error: string;
+    loading: boolean;
+    success: boolean;
+  };
+  city: {
+    value: string;
+    hasError: boolean;
+    error: string;
+    loading: boolean;
+    success: boolean;
+  };
+  zipcode: {
+    value: string;
+    hasError: boolean;
+    error: string;
+    loading: boolean;
+    success: boolean;
+  };
   isFormValid: {
     success: boolean;
   };
@@ -233,7 +317,48 @@ export const PaymentContextProvider: React.FC = ({ children }) => {
           loading: state.cvv.loading,
           success: state.cvv.success,
         },
-
+        firstname: {
+          value: state.firstname.value,
+          hasError: state.firstname.hasError,
+          error: state.firstname.error,
+          loading: state.firstname.loading,
+          success: state.firstname.success,
+        },
+        lastname: {
+          value: state.lastname.value,
+          hasError: state.lastname.hasError,
+          error: state.lastname.error,
+          loading: state.lastname.loading,
+          success: state.lastname.success,
+        },
+        address01: {
+          value: state.address01.value,
+          hasError: state.address01.hasError,
+          error: state.address01.error,
+          loading: state.address01.loading,
+          success: state.address01.success,
+        },
+        address02: {
+          value: state.address02.value,
+          hasError: state.address02.hasError,
+          error: state.address02.error,
+          loading: state.address02.loading,
+          success: state.address02.success,
+        },
+        city: {
+          value: state.city.value,
+          hasError: state.city.hasError,
+          error: state.city.error,
+          loading: state.city.loading,
+          success: state.city.success,
+        },
+        zipcode: {
+          value: state.zipcode.value,
+          hasError: state.zipcode.hasError,
+          error: state.zipcode.error,
+          loading: state.zipcode.loading,
+          success: state.zipcode.success,
+        },
         isFormValid: {
           success: state.isFormValid.success,
         },

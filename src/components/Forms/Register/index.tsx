@@ -19,7 +19,17 @@ import { buildPasswordConstraints } from "../../../utils";
 import styles from "./index.module.scss";
 import { FormContext, FORMSTATUS } from "../../../contexts/FormContext";
 
-export const Register = () => {
+export const Register = ({
+  isFormComplete,
+  setIsFormComplete,
+}: {
+  isFormComplete: { register: boolean; verify: boolean; payment: boolean };
+  setIsFormComplete: (prevState: {
+    register: boolean;
+    verify: boolean;
+    payment: boolean;
+  }) => void;
+}) => {
   const context = useContext(RegisterContext);
   const {
     email,
@@ -146,9 +156,6 @@ export const Register = () => {
               />
             </RadioButtonGroup>
           </FormGroup>
-
-          {/* TODO Maybe this button can  toggle the accordion closed */}
-          {/* Should also toggle  open next component */}
           <Button
             disabled={
               email.success === true && password.success === true ? false : true
@@ -157,6 +164,7 @@ export const Register = () => {
             onClick={() => {
               formSuccess();
               formContext.setActiveForm(FORMSTATUS.VERIFY);
+              setIsFormComplete({ ...isFormComplete, register: true });
             }}
           >
             Next

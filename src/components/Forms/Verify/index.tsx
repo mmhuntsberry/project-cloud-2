@@ -6,7 +6,17 @@ import styles from "./index.module.scss";
 import { VerifyContext } from "../../../contexts/VerifyContext";
 import { FormContext, FORMSTATUS } from "../../../contexts/FormContext";
 
-export const Verify = () => {
+export const Verify = ({
+  isFormComplete,
+  setIsFormComplete,
+}: {
+  isFormComplete: { register: boolean; verify: boolean; payment: boolean };
+  setIsFormComplete: (prevState: {
+    register: boolean;
+    verify: boolean;
+    payment: boolean;
+  }) => void;
+}) => {
   const context = useContext(RegisterContext);
   const verifyContext = useContext(VerifyContext);
   const formContext = useContext(FormContext);
@@ -44,6 +54,7 @@ export const Verify = () => {
             verifyContext.formSuccess();
             verifyContext.setIsToggled(false);
             formContext.setActiveForm(FORMSTATUS.PAYMENT);
+            setIsFormComplete({ ...isFormComplete, verify: true });
           }}
         >
           Next

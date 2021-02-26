@@ -11,6 +11,10 @@ import {
 } from "carbon-components-react";
 import styles from "./index.module.scss";
 import { PaymentContext } from "../../../contexts/PaymentContext";
+import { VerifyContext } from "../../../contexts/VerifyContext";
+import { RegisterContext } from "../../../contexts/RegisterContext";
+import { FormContext, FORMSTATUS } from "../../../contexts/FormContext";
+
 import "./overrides.scss";
 
 const CREDIT_CARD_REGEX = RegExp(
@@ -18,16 +22,37 @@ const CREDIT_CARD_REGEX = RegExp(
 );
 
 const EXPIRATION_REGEX = RegExp(/^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/);
-
 const CVV_REGEX = RegExp(/^[0-9]{3,4}$/);
 
-export const Payment = () => {
+export const Payment = ({
+  isFormComplete,
+  setIsFormComplete,
+}: {
+  isFormComplete: { register: boolean; verify: boolean; payment: boolean };
+  setIsFormComplete: (prevState: {
+    register: boolean;
+    verify: boolean;
+    payment: boolean;
+  }) => void;
+}) => {
   const paymentContext = useContext(PaymentContext);
+  const verifyContext = useContext(VerifyContext);
+  const registerContext = useContext(RegisterContext);
+  const formContext = useContext(FormContext);
+
+  const isButtonDisabled =
+    paymentContext.creditCard.success &&
+    paymentContext.cvv.success &&
+    paymentContext.expiration.success &&
+    paymentContext.firstname.success &&
+    paymentContext.lastname.success &&
+    paymentContext.address01.success &&
+    paymentContext.address02.success &&
+    paymentContext.city.success &&
+    paymentContext.zipcode.success;
 
   useEffect(() => {
-    console.log(paymentContext.creditCard);
-    console.log(paymentContext.expiration);
-    console.log(paymentContext.cvv);
+    console.log("TOGGLED", paymentContext.isFormToggled);
   });
   return (
     <Form className={`${styles.formContainer} ${styles.formContainerGrid}`}>
@@ -42,11 +67,14 @@ export const Payment = () => {
           type="text"
           size="xl"
           light
+          value={paymentContext.creditCard.value}
           onChange={paymentContext.updateInput}
           onBlur={(evt) => {
             if (!CREDIT_CARD_REGEX.test(paymentContext.creditCard.value)) {
-              paymentContext.checkError(evt);
+              return paymentContext.checkError(evt);
             }
+
+            paymentContext.fieldSuccess(evt);
           }}
           invalid={paymentContext.creditCard.hasError}
         />
@@ -61,11 +89,13 @@ export const Payment = () => {
         labelText="Expiration date"
         placeholder="mm/yy"
         type="text"
+        value={paymentContext.expiration.value}
         onChange={paymentContext.updateInput}
         onBlur={(evt) => {
           if (!EXPIRATION_REGEX.test(paymentContext.expiration.value)) {
-            paymentContext.checkError(evt);
+            return paymentContext.checkError(evt);
           }
+          paymentContext.fieldSuccess(evt);
         }}
         invalid={paymentContext.expiration.hasError}
       />
@@ -79,16 +109,18 @@ export const Payment = () => {
         labelText="Security code"
         placeholder="Enter code"
         type="text"
+        value={paymentContext.cvv.value}
         onChange={paymentContext.updateInput}
         onBlur={(evt) => {
           if (!CVV_REGEX.test(paymentContext.cvv.value)) {
-            paymentContext.checkError(evt);
+            return paymentContext.checkError(evt);
           }
+          paymentContext.fieldSuccess(evt);
         }}
         invalid={paymentContext.cvv.hasError}
       />
       <TextInput
-        name="firsname"
+        name="firstname"
         className={styles.textInput}
         size="xl"
         light
@@ -97,7 +129,9 @@ export const Payment = () => {
         labelText="First name"
         placeholder="Enter name"
         type="text"
+        value={paymentContext.firstname.value}
         onChange={paymentContext.updateInput}
+        onBlur={(evt) => paymentContext.fieldSuccess(evt)}
       />
       <TextInput
         name="lastname"
@@ -109,7 +143,9 @@ export const Payment = () => {
         labelText="Last name"
         placeholder="Enter last name"
         type="text"
+        value={paymentContext.lastname.value}
         onChange={paymentContext.updateInput}
+        onBlur={(evt) => paymentContext.fieldSuccess(evt)}
       />
       <div className={styles.gridSpanAll}>
         <TextInput
@@ -122,7 +158,9 @@ export const Payment = () => {
           type="text"
           size="xl"
           light
+          value={paymentContext.address01.value}
           onChange={paymentContext.updateInput}
+          onBlur={(evt) => paymentContext.fieldSuccess(evt)}
         />
       </div>
       <div className={styles.gridSpanAll}>
@@ -136,7 +174,9 @@ export const Payment = () => {
           type="text"
           size="xl"
           light
+          value={paymentContext.address02.value}
           onChange={paymentContext.updateInput}
+          onBlur={(evt) => paymentContext.fieldSuccess(evt)}
         />
       </div>
       <div className={styles.gridSpanAll}>
@@ -150,7 +190,9 @@ export const Payment = () => {
           type="text"
           size="xl"
           light
+          value={paymentContext.city.value}
           onChange={paymentContext.updateInput}
+          onBlur={(evt) => paymentContext.fieldSuccess(evt)}
         />
       </div>
       <Select
@@ -181,11 +223,13 @@ export const Payment = () => {
         labelText="Zip code"
         placeholder="Enter zip code"
         type="text"
+        value={paymentContext.zipcode.value}
         onChange={paymentContext.updateInput}
+        onBlur={(evt) => paymentContext.fieldSuccess(evt)}
         size="xl"
         light
       />
-      <div className={`${styles.gridSpanAll} u-margin-t-09`}>
+      <div className={`${styles.gridSpanAll} u-margin-t-02`}>
         <fieldset className="bx--fieldset">
           <Checkbox
             className={styles.formCheckbox}
@@ -193,6 +237,18 @@ export const Payment = () => {
             id="checked-label-1"
           />
         </fieldset>
+        <Button
+          disabled={!isButtonDisabled}
+          className={styles.formButton}
+          onClick={() => {
+            paymentContext.formSuccess();
+            paymentContext.setIsToggled(false);
+            formContext.setActiveForm(FORMSTATUS.COMPLETE);
+            setIsFormComplete({ ...isFormComplete, payment: true });
+          }}
+        >
+          Next
+        </Button>
       </div>
     </Form>
   );
