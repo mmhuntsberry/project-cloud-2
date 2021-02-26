@@ -8,9 +8,10 @@ import { FormContext, FORMSTATUS } from "../../../contexts/FormContext";
 
 export const Verify = () => {
   const context = useContext(RegisterContext);
-  const { email } = context;
   const verifyContext = useContext(VerifyContext);
   const formContext = useContext(FormContext);
+
+  const { email } = context;
   const SECRET: string = "1234567";
 
   useEffect(() => {}, [email, verifyContext]);
