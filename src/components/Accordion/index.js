@@ -29,7 +29,7 @@ export const Accordion: React.FC<Props> = ({ children, title, context }) => {
       setIsToggled(true);
     }
     console.log(formContext);
-  }, [isFormToggled, formContext.activeForm]);
+  }, [isFormToggled, formContext, name]);
 
   const isCompleted = isFormValid.success;
 
