@@ -1,23 +1,69 @@
 import React, { createContext, useReducer } from "react";
 
 const initialState = {
-  name: "register",
-  email: {
+  name: "payment",
+  creditCard: {
     value: "",
     hasError: false,
     error: "",
     loading: false,
     success: false,
   },
-  password: {
+  expiration: {
     value: "",
     hasError: false,
     error: "",
     loading: false,
     success: false,
   },
-  accountType: {
-    value: "company",
+  cvv: {
+    value: "",
+    hasError: false,
+    error: "",
+    loading: false,
+    success: false,
+  },
+  firstname: {
+    value: "",
+    hasError: false,
+    error: "",
+    loading: false,
+    success: false,
+  },
+  lastname: {
+    value: "",
+    hasError: false,
+    error: "",
+    loading: false,
+    success: false,
+  },
+  address01: {
+    value: "",
+    hasError: false,
+    error: "",
+    loading: false,
+    success: false,
+  },
+  address02: {
+    value: "",
+    hasError: false,
+    error: "",
+    loading: false,
+    success: false,
+  },
+  city: {
+    value: "",
+    hasError: false,
+    error: "",
+    loading: false,
+    success: false,
+  },
+  zipcode: {
+    value: "",
+    hasError: false,
+    error: "",
+    loading: false,
+    success: false,
   },
   isFormValid: {
     success: false,
@@ -27,7 +73,6 @@ const initialState = {
   checkError: (evt: React.ChangeEvent<HTMLInputElement>): void => {},
   fieldSuccess: (evt: React.ChangeEvent<HTMLInputElement>): void => {},
   setLoading: (evt: React.ChangeEvent<HTMLInputElement>): void => {},
-  updateAccountType: (val: number | string): void => {},
   formSuccess: (): void => {},
   formEdit: (): void => {},
   setIsToggled: (payload: boolean): void => {},
@@ -174,22 +219,68 @@ type LoginAction =
 
 interface LoginState {
   name: string;
-  email: {
+  creditCard: {
     value: string;
     hasError: boolean;
     error: string;
     loading: boolean;
     success: boolean;
   };
-  password: {
+  expiration: {
     value: string;
     hasError: boolean;
     error: string;
     loading: boolean;
     success: boolean;
   };
-  accountType: {
+  cvv: {
     value: string;
+    hasError: boolean;
+    error: string;
+    loading: boolean;
+    success: boolean;
+  };
+  firstname: {
+    value: string;
+    hasError: boolean;
+    error: string;
+    loading: boolean;
+    success: boolean;
+  };
+  lastname: {
+    value: string;
+    hasError: boolean;
+    error: string;
+    loading: boolean;
+    success: boolean;
+  };
+  address01: {
+    value: string;
+    hasError: boolean;
+    error: string;
+    loading: boolean;
+    success: boolean;
+  };
+  address02: {
+    value: string;
+    hasError: boolean;
+    error: string;
+    loading: boolean;
+    success: boolean;
+  };
+  city: {
+    value: string;
+    hasError: boolean;
+    error: string;
+    loading: boolean;
+    success: boolean;
+  };
+  zipcode: {
+    value: string;
+    hasError: boolean;
+    error: string;
+    loading: boolean;
+    success: boolean;
   };
   isFormValid: {
     success: boolean;
@@ -197,30 +288,76 @@ interface LoginState {
   isFormToggled: boolean;
 }
 
-export const RegisterContext = createContext(initialState);
+export const PaymentContext = createContext(initialState);
 
-export const RegisterContextProvider: React.FC = ({ children }) => {
+export const PaymentContextProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   return (
-    <RegisterContext.Provider
+    <PaymentContext.Provider
       value={{
         name: state.name,
-        email: {
-          value: state.email.value,
-          hasError: state.email.hasError,
-          error: state.email.error,
-          loading: state.email.loading,
-          success: state.email.success,
+        creditCard: {
+          value: state.creditCard.value,
+          hasError: state.creditCard.hasError,
+          error: state.creditCard.error,
+          loading: state.creditCard.loading,
+          success: state.creditCard.success,
         },
-        password: {
-          value: state.password.value,
-          hasError: state.password.hasError,
-          error: state.password.error,
-          loading: state.password.loading,
-          success: state.password.success,
+        expiration: {
+          value: state.expiration.value,
+          hasError: state.expiration.hasError,
+          error: state.expiration.error,
+          loading: state.expiration.loading,
+          success: state.expiration.success,
         },
-        accountType: {
-          value: state.accountType.value,
+        cvv: {
+          value: state.cvv.value,
+          hasError: state.cvv.hasError,
+          error: state.cvv.error,
+          loading: state.cvv.loading,
+          success: state.cvv.success,
+        },
+        firstname: {
+          value: state.firstname.value,
+          hasError: state.firstname.hasError,
+          error: state.firstname.error,
+          loading: state.firstname.loading,
+          success: state.firstname.success,
+        },
+        lastname: {
+          value: state.lastname.value,
+          hasError: state.lastname.hasError,
+          error: state.lastname.error,
+          loading: state.lastname.loading,
+          success: state.lastname.success,
+        },
+        address01: {
+          value: state.address01.value,
+          hasError: state.address01.hasError,
+          error: state.address01.error,
+          loading: state.address01.loading,
+          success: state.address01.success,
+        },
+        address02: {
+          value: state.address02.value,
+          hasError: state.address02.hasError,
+          error: state.address02.error,
+          loading: state.address02.loading,
+          success: state.address02.success,
+        },
+        city: {
+          value: state.city.value,
+          hasError: state.city.hasError,
+          error: state.city.error,
+          loading: state.city.loading,
+          success: state.city.success,
+        },
+        zipcode: {
+          value: state.zipcode.value,
+          hasError: state.zipcode.hasError,
+          error: state.zipcode.error,
+          loading: state.zipcode.loading,
+          success: state.zipcode.success,
         },
         isFormValid: {
           success: state.isFormValid.success,
@@ -252,7 +389,7 @@ export const RegisterContextProvider: React.FC = ({ children }) => {
             field: evt.target.name,
             payload: evt.target.value,
             hasError: true,
-            error: "Must be a valid email address.",
+            error: "Must be a valid credit card number.",
             loading: false,
             success: false,
           }),
@@ -265,12 +402,6 @@ export const RegisterContextProvider: React.FC = ({ children }) => {
             error: "",
             loading: false,
             success: true,
-          }),
-        updateAccountType: (evt): void =>
-          dispatch({
-            type: "ACCOUNT_TYPE",
-            field: "accountType",
-            payload: String(evt),
           }),
         formSuccess: (): void =>
           dispatch({
@@ -293,6 +424,6 @@ export const RegisterContextProvider: React.FC = ({ children }) => {
       }}
     >
       {children}
-    </RegisterContext.Provider>
+    </PaymentContext.Provider>
   );
 };

@@ -4,6 +4,7 @@ export enum FORMSTATUS {
   REGISTER = "register",
   VERIFY = "verify",
   PAYMENT = "payment",
+  COMPLETE = "complete",
 }
 
 const initialState = {
