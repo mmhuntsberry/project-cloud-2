@@ -10,8 +10,6 @@ import {
 } from "carbon-components-react";
 import styles from "./index.module.scss";
 import { PaymentContext } from "../../../contexts/PaymentContext";
-import { VerifyContext } from "../../../contexts/VerifyContext";
-import { RegisterContext } from "../../../contexts/RegisterContext";
 import { FormContext, FORMSTATUS } from "../../../contexts/FormContext";
 
 import "./overrides.scss";
