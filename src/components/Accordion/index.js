@@ -27,6 +27,7 @@ export const Accordion: React.FC<Props> = ({ children, title, context }) => {
     if (name === formContext.activeForm) {
       setIsToggled(true);
     }
+
     /* eslint-disable */
   }, [isFormToggled, formContext, name]);
   /* eslint-enable */

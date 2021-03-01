@@ -6,11 +6,22 @@ import styles from "./index.module.scss";
 import { VerifyContext } from "../../../contexts/VerifyContext";
 import { FormContext, FORMSTATUS } from "../../../contexts/FormContext";
 
-export const Verify = () => {
+export const Verify = ({
+  isFormComplete,
+  setIsFormComplete,
+}: {
+  isFormComplete: { register: boolean; verify: boolean; payment: boolean };
+  setIsFormComplete: (prevState: {
+    register: boolean;
+    verify: boolean;
+    payment: boolean;
+  }) => void;
+}) => {
   const context = useContext(RegisterContext);
-  const { email } = context;
   const verifyContext = useContext(VerifyContext);
   const formContext = useContext(FormContext);
+
+  const { email } = context;
   const SECRET: string = "1234567";
 
   useEffect(() => {}, [email, verifyContext]);
@@ -42,7 +53,8 @@ export const Verify = () => {
           onClick={(evt) => {
             verifyContext.formSuccess();
             verifyContext.setIsToggled(false);
-            formContext.setActiveForm(FORMSTATUS.REGISTER);
+            formContext.setActiveForm(FORMSTATUS.PAYMENT);
+            setIsFormComplete({ ...isFormComplete, verify: true });
           }}
         >
           Next
