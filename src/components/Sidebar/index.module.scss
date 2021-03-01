@@ -1,0 +1,30 @@
+@import 'carbon-components/scss/globals/scss/typography';
+@import '@carbon/themes/scss/themes';
+$carbon--theme: $carbon--theme--g100;
+@include carbon--theme();
+
+.sidebar {
+  color: $text-01;
+}
+
+.sidebarHeading {
+  // width: 300px;
+  @include carbon--type-style('productive-heading-03');
+}
+
+.sidebarSubheading {
+  width: 300px;
+  @include carbon--type-style('body-short-02');
+}
+
+// @include carbon--breakpoint-down(lg) {
+//   .sidebar {
+//     margin-top: $spacing-07;
+//   }
+// }
+
+@media (max-width: 1056px) {
+  .sidebar {
+    display: none;
+  }
+}

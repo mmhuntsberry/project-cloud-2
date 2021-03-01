@@ -5,6 +5,7 @@ import { Verify } from "./components/Forms/Verify";
 import { Payment } from "./components/Forms/Payment";
 import { Accordion } from "./components/Accordion";
 import { Header } from "./components/Forms/Header";
+import { Sidebar } from "./components/Sidebar";
 import { FormContextProvider } from "./contexts/FormContext";
 import { RegisterContextProvider } from "./contexts/RegisterContext";
 import { VerifyContextProvider } from "./contexts/VerifyContext";
@@ -34,12 +35,12 @@ const App = () => {
       <RegisterContextProvider>
         <VerifyContextProvider>
           <PaymentContextProvider>
-            <div className="App">
+            <div className={`${styles.app}`}>
               <div className="bx--grid">
                 <Header />
                 <div className="bx--row">
                   {/* Treated as flex items need to contain to one div*/}
-                  <div className="bx--col-lg-9 bx--col-md-8 bx--col-sm-8">
+                  <div className="bx--col-lg-8 bx--col-md-6 bx--col-sm-4">
                     <Accordion
                       title="Account information"
                       context={RegisterContext}
@@ -75,6 +76,7 @@ const App = () => {
                       Continue
                     </Button>
                   </div>
+                  <Sidebar />
                 </div>
               </div>
             </div>
