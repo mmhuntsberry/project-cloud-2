@@ -1,9 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import {
   Form,
   TextInput,
   Button,
-  Link,
   Select,
   SelectItem,
   SelectItemGroup,
@@ -36,8 +35,6 @@ export const Payment = ({
   }) => void;
 }) => {
   const paymentContext = useContext(PaymentContext);
-  const verifyContext = useContext(VerifyContext);
-  const registerContext = useContext(RegisterContext);
   const formContext = useContext(FormContext);
 
   const isButtonDisabled =
