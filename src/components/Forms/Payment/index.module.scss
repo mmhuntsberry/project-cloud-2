@@ -1,6 +1,5 @@
 @import 'carbon-components/scss/globals/scss/typography';
 @import '@carbon/themes/scss/themes';
-
 $carbon--theme: $carbon--theme--g100;
 @include carbon--theme();
 
@@ -10,7 +9,7 @@ $carbon--theme: $carbon--theme--g100;
   width: 100%;
   border-left: 2px solid #538bf7;
   padding-left: $spacing-07;
-  padding-right: $spacing-07;
+  padding-right: $spacing-02;
   padding-bottom: $spacing-07;
 }
 
