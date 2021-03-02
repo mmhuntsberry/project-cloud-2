@@ -5,7 +5,7 @@ $carbon--theme: $carbon--theme--g100;
 
 .formContainer {
   display: grid;
-  max-width: 400px;
+  max-width: 500px;
   width: 100%;
   border-left: 2px solid #538bf7;
   padding-left: $spacing-07;
@@ -19,7 +19,6 @@ $carbon--theme: $carbon--theme--g100;
 
 .formInputContainer {
   position: relative;
-  max-width: 400px;
   width: 100%;
 }
 

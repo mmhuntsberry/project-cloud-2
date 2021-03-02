@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.scss";
+import GlobalHeader from "./components/GlobalHeader";
 import { Register } from "./components/Forms/Register";
 import { Verify } from "./components/Forms/Verify";
 import { Payment } from "./components/Forms/Payment";
@@ -36,11 +37,12 @@ const App = () => {
         <VerifyContextProvider>
           <PaymentContextProvider>
             <div className={`${styles.app}`}>
+              <GlobalHeader />
               <div className="bx--grid">
                 <Header />
-                <div className="bx--row">
+                <div className={`bx--row`}>
                   {/* Treated as flex items need to contain to one div*/}
-                  <div className="bx--col-lg-8 bx--col-md-6 bx--col-sm-4">
+                  <div className="bx--col-lg-7 bx--col-md-6 bx--col-sm-4">
                     <Accordion
                       title="Account information"
                       context={RegisterContext}

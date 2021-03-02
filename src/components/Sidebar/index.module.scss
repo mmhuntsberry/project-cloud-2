@@ -5,23 +5,25 @@ $carbon--theme: $carbon--theme--g100;
 
 .sidebar {
   color: $text-01;
+  margin-top: $layout-03;
+  max-width: 100%;
+  height: 100%;
 }
 
 .sidebarHeading {
-  // width: 300px;
-  @include carbon--type-style('productive-heading-03');
+  @include carbon--type-style('productive-heading-04');
 }
 
 .sidebarSubheading {
-  width: 300px;
-  @include carbon--type-style('body-short-02');
+  max-width: 380px;
+  @include carbon--type-style('expressive-heading-03');
 }
 
-// @include carbon--breakpoint-down(lg) {
-//   .sidebar {
-//     margin-top: $spacing-07;
-//   }
-// }
+@include carbon--breakpoint-down(lg) {
+  .sidebar {
+    margin-top: $spacing-07;
+  }
+}
 
 @media (max-width: 1056px) {
   .sidebar {
