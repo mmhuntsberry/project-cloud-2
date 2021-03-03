@@ -11,12 +11,13 @@ $carbon--theme: $carbon--theme--g100;
 }
 
 .sidebarHeading {
-  @include carbon--type-style('productive-heading-04');
+  @include carbon--type-style('productive-heading-03');
 }
 
 .sidebarSubheading {
-  max-width: 380px;
-  @include carbon--type-style('expressive-heading-03');
+  color: $ui-05;
+  max-width: 300px;
+  @include carbon--type-style('expressive-heading-02');
 }
 
 @include carbon--breakpoint-down(lg) {
