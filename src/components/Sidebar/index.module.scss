@@ -18,6 +18,7 @@ $carbon--theme: $carbon--theme--g100;
   color: $ui-05;
   max-width: 300px;
   @include carbon--type-style('expressive-heading-02');
+  font-weight: lighter;
 }
 
 @include carbon--breakpoint-down(lg) {
