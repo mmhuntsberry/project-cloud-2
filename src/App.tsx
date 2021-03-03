@@ -42,7 +42,9 @@ const App = () => {
                 <Header />
                 <div className={`bx--row`}>
                   {/* Treated as flex items need to contain to one div*/}
-                  <div className="bx--col-lg-7 bx--col-md-6 bx--col-sm-4">
+                  <div
+                    className={`${styles.formContainer} bx--col-lg-7 bx--col-md-6 bx--col-sm-4`}
+                  >
                     <Accordion
                       title="Account information"
                       context={RegisterContext}
