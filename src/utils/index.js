@@ -61,8 +61,7 @@ export const buildPasswordConstraints = (password) => {
     {
       id: 5,
       constraint: hasSpecialCharacters,
-      text:
-        'Special characters are optional. Cannot contain space or `\\;:{"?)<>',
+      text: 'Cannot contain space or `\\;:{"?)<>',
       className: {
         success: "hasSpecialCharactersSuccess",
         error: "hasSpecialCharactersError",

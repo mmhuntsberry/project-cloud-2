@@ -73,6 +73,13 @@ export const Register = ({
     history.push("/");
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    console.log(e.key);
+    if (e.key === "Enter") {
+      e.currentTarget.blur();
+    }
+  };
+
   return (
     <>
       {!isFormValid.success ? (
@@ -125,6 +132,7 @@ export const Register = ({
                     }
                     fieldSuccess(evt);
                   }}
+                  onKeyDown={handleKeyPress}
                   onChange={(evt) => updateInput(evt)}
                   value={password.value}
                 />
