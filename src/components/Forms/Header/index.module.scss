@@ -1,4 +1,6 @@
 @import '@carbon/themes/scss/themes';
+@import 'carbon-components/scss/globals/scss/typography';
+
 $carbon--theme: $carbon--theme--g100;
 @include carbon--theme();
 
@@ -12,15 +14,16 @@ $carbon--theme: $carbon--theme--g100;
   fill: $text-01;
 }
 
-.formHeader {
-  color: $text-01;
-}
-
 .formHeaderLabelContainer {
   display: flex;
   align-items: baseline;
 }
 
-.formHeaderLabelContainerVerify {
-  margin-top: $spacing-05;
+.formHeaderLabel {
+  @include carbon--type-style('body-long-01');
+  color: $text-01;
+}
+
+.formHeaderLabelLink {
+  @include carbon--type-style('body-long-01');
 }

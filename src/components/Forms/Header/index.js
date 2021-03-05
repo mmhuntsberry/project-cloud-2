@@ -10,15 +10,12 @@ export const Header = () => {
   return (
     <div className={`${styles.formHeaderContainer} u-pad-t-layout-06`}>
       <img className={styles.formHeaderIcon} src={IbmCloud} alt="IBM Cloud" />
-      <h2
-        className={`
-      ${styles.formHeader} u-pad-t-layout-03`}
-      >
-        Create an IBM account
-      </h2>
-      <div className={`${styles.formHeaderLabelContainer} `}>
-        <p className={`u-margin-r-02`}>Already have a IBM Cloud account?</p>
-        <Link className="bx--link" href="/">
+      <h2 className="u-pad-t-layout-03">Create an IBM account</h2>
+      <div className={styles.formHeaderLabelContainer}>
+        <p className={`${styles.formHeaderLabel} u-margin-r-02`}>
+          Already have a IBM Cloud account?
+        </p>
+        <Link className={styles.formHeaderLabelLink} href="/">
           Log in
         </Link>
       </div>
