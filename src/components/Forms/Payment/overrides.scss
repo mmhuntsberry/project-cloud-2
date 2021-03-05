@@ -1,3 +1,16 @@
 .bx--select-input {
   width: 100%;
 }
+
+// Reset the default for the radio button inner appearance
+.bx--radio-button:checked
+  + .bx--radio-button__label
+  .bx--radio-button__appearance::before {
+  content: '';
+  display: inline-block;
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background-color: var(--cds-icon-01, #f4f4f4);
+}

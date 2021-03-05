@@ -2,13 +2,14 @@ import React from "react";
 import { Link } from "carbon-components-react";
 
 import { IbmCloud32 } from "@carbon/icons-react";
+import IbmCloud from "../../../assets/ibmcloudlogo.png";
 
 import styles from "./index.module.scss";
 
 export const Header = () => {
   return (
     <div className={`${styles.formHeaderContainer} u-pad-t-layout-06`}>
-      <IbmCloud32 className={`${styles.formHeaderIcon}`} />
+      <img className={styles.formHeaderIcon} src={IbmCloud} alt="IBM Cloud" />
       <h2
         className={`
       ${styles.formHeader} u-pad-t-layout-03`}
