@@ -74,7 +74,6 @@ export const Register = ({
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    console.log(e.key);
     if (e.key === "Enter") {
       e.currentTarget.blur();
     }
@@ -104,7 +103,6 @@ export const Register = ({
                     setTimeout(() => {
                       fieldSuccess(evt);
                     }, 1000);
-                    // TODO rename.  This comes from context not useState()
                     setLoading(evt);
                   }}
                   value={email.value}
@@ -122,9 +120,10 @@ export const Register = ({
                   size="xl"
                   placeholder="Enter password"
                   onFocus={() => setIsOpen(true)}
+                  onMouseEnter={() => setIsOpen(true)}
+                  onMouseLeave={() => setIsOpen(false)}
                   onBlur={(evt) => {
                     setIsOpen(false);
-
                     if (
                       passwordConstraints.some(({ constraint }) => !constraint)
                     ) {
