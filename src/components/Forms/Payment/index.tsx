@@ -7,6 +7,8 @@ import {
   SelectItem,
   SelectItemGroup,
   Checkbox,
+  DatePicker,
+  DatePickerInput,
 } from "carbon-components-react";
 import styles from "./index.module.scss";
 import { PaymentContext } from "../../../contexts/PaymentContext";
@@ -74,7 +76,7 @@ export const Payment = ({
           invalid={paymentContext.creditCard.hasError}
         />
       </div>
-      <TextInput
+      {/* <TextInput
         name="expiration"
         className={styles.textInput}
         size="xl"
@@ -93,7 +95,33 @@ export const Payment = ({
           paymentContext.fieldSuccess(evt);
         }}
         invalid={paymentContext.expiration.hasError}
-      />
+      /> */}
+      <DatePicker
+        dateFormat="m/Y"
+        datePickerType="simple"
+        className="form__input"
+        id="expiration"
+        light
+      >
+        <DatePickerInput
+          invalid={paymentContext.expiration.hasError}
+          invalidText="Invalid error message."
+          labelText="Expiration date"
+          id="date-picker-default-id"
+          placeholder="mm/yy"
+          type="text"
+          size="xl"
+          name="expiration"
+          onChange={paymentContext.updateInput}
+          onBlur={(evt) => {
+            if (!EXPIRATION_REGEX.test(paymentContext.expiration.value)) {
+              return paymentContext.checkError(evt);
+            }
+            paymentContext.fieldSuccess(evt);
+          }}
+        />
+      </DatePicker>
+
       <TextInput
         name="cvv"
         className={styles.textInput}
@@ -227,6 +255,7 @@ export const Payment = ({
       <div className={`${styles.gridSpanAll} u-margin-t-02`}>
         <fieldset className="bx--fieldset">
           <Checkbox
+            checked
             className={styles.formCheckbox}
             labelText="My billing address is the same as my company address"
             id="checked-label-1"

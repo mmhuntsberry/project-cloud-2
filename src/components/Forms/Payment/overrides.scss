@@ -14,3 +14,16 @@
   border-radius: 50%;
   background-color: var(--cds-icon-01, #f4f4f4);
 }
+
+// Override for full width date picker
+.bx--date-picker,
+.bx--date-picker-container,
+.bx--date-picker-input__wrapper,
+.bx--date-picker__input,
+.bx--date-picker__input--xl {
+  width: 100%;
+}
+
+#date-picker-default-id {
+  width: 100%;
+}

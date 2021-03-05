@@ -63,7 +63,7 @@ export const Verify = ({
           <p className={`${styles.formLabel} u-margin-0 u-margin-r-02`}>
             Didn't get an email?
           </p>
-          <Link href="#" className="bx--link">
+          <Link href="#" className={styles.formLabelLink}>
             Resend code
           </Link>
         </div>
