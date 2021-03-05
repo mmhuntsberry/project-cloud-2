@@ -26,13 +26,26 @@ export const Verify = ({
 
   useEffect(() => {}, [email, verifyContext]);
 
+  const handleClick = () => {
+    verifyContext.formSuccess();
+    verifyContext.setIsToggled(false);
+    formContext.setActiveForm(FORMSTATUS.PAYMENT);
+    setIsFormComplete({ ...isFormComplete, verify: true });
+  };
+
   return (
     <>
       <p className={styles.formDetails}>
         For security we need to verify your identity. We sent a 7-digit code to{" "}
         <strong>{email.value}</strong>. This code is valid for 30 minutes.
       </p>
-      <Form className={`${styles.formContainer}`}>
+      <Form
+        className={`${styles.formContainer}`}
+        onSubmit={(evt) => {
+          evt.preventDefault();
+          handleClick();
+        }}
+      >
         <TextInput
           className="u-margin-b-05"
           id="verify-email"
@@ -50,12 +63,7 @@ export const Verify = ({
         <Button
           disabled={verifyContext.code.value !== SECRET}
           className={styles.formButton}
-          onClick={(evt) => {
-            verifyContext.formSuccess();
-            verifyContext.setIsToggled(false);
-            formContext.setActiveForm(FORMSTATUS.PAYMENT);
-            setIsFormComplete({ ...isFormComplete, verify: true });
-          }}
+          onClick={handleClick}
         >
           Next
         </Button>

@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "carbon-components-react";
 
-import { IbmCloud32 } from "@carbon/icons-react";
 import IbmCloud from "../../../assets/ibmcloudlogo.png";
 
 import styles from "./index.module.scss";
