@@ -11,3 +11,8 @@ $carbon--theme: $carbon--theme--g100;
 @import './styles/base/base';
 @import './styles/utilities/margins';
 @import './styles/utilities/paddings';
+
+.bx--grid {
+  padding: 0;
+  margin: 0;
+}

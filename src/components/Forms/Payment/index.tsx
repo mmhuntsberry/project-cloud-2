@@ -15,6 +15,7 @@ import { PaymentContext } from "../../../contexts/PaymentContext";
 import { FormContext, FORMSTATUS } from "../../../contexts/FormContext";
 
 import "./overrides.scss";
+import { formatCard, creditCardExpiresFormat } from "../../../utils";
 
 const CREDIT_CARD_REGEX = RegExp(
   /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11}|62[0-9]{14})$/
@@ -44,7 +45,6 @@ export const Payment = ({
     paymentContext.firstname.success &&
     paymentContext.lastname.success &&
     paymentContext.address01.success &&
-    paymentContext.address02.success &&
     paymentContext.city.success &&
     paymentContext.zipcode.success;
 
@@ -64,10 +64,14 @@ export const Payment = ({
           type="text"
           size="xl"
           light
-          value={paymentContext.creditCard.value}
+          value={formatCard(paymentContext.creditCard.value)}
           onChange={paymentContext.updateInput}
           onBlur={(evt) => {
-            if (!CREDIT_CARD_REGEX.test(paymentContext.creditCard.value)) {
+            const cleanStr = paymentContext.creditCard.value.replaceAll(
+              " ",
+              ""
+            );
+            if (!CREDIT_CARD_REGEX.test(cleanStr)) {
               return paymentContext.checkError(evt);
             }
 
@@ -112,6 +116,7 @@ export const Payment = ({
           type="text"
           size="xl"
           name="expiration"
+          value={creditCardExpiresFormat(paymentContext.expiration.value)}
           onChange={paymentContext.updateInput}
           onBlur={(evt) => {
             if (!EXPIRATION_REGEX.test(paymentContext.expiration.value)) {
@@ -255,7 +260,7 @@ export const Payment = ({
       <div className={`${styles.gridSpanAll} u-margin-t-02`}>
         <fieldset className="bx--fieldset">
           <Checkbox
-            checked
+            defaultChecked
             className={styles.formCheckbox}
             labelText="My billing address is the same as my company address"
             id="checked-label-1"
