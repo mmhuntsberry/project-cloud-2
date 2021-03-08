@@ -21,14 +21,20 @@ $carbon--theme: $carbon--theme--g100;
   padding-top: $spacing-03;
   padding-bottom: $spacing-07;
   padding-left: $spacing-08;
-  color: $text-02;
-  max-width: 500px;
+  @include carbon--type-style('body-long-01');
+  color: $text-01;
+  max-width: 400px;
   border-left: 2px solid #538bf7;
 }
 
 .formLabelContainer {
   display: flex;
   align-items: baseline;
+}
+
+.formLabel,
+.formLabelLink {
+  @include carbon--type-style('body-long-01');
 }
 
 .formLabel {

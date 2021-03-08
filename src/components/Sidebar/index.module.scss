@@ -17,8 +17,7 @@ $carbon--theme: $carbon--theme--g100;
 .sidebarSubheading {
   color: $ui-05;
   max-width: 300px;
-  @include carbon--type-style('expressive-heading-02');
-  font-weight: lighter;
+  @include carbon--type-style('body-short-02');
 }
 
 @include carbon--breakpoint-down(lg) {

@@ -1,9 +1,11 @@
 .app {
   height: 100%;
+  padding: 0 32px;
 }
 
 @media (min-width: 1056px) {
   .app {
+    padding: 0 64px;
     background: url('https://res.cloudinary.com/mattthebunny/image/upload/a_vflip/c_scale,q_100,w_1851/a_90/v1614621697/3_AI_Ready_03-02_h4btd0.webp');
     background-repeat: no-repeat;
     background-size: 1400px;

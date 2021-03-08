@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from "react";
-import { Edit20 } from "@carbon/icons-react";
+import { Edit16 } from "@carbon/icons-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FormContext } from "../../contexts/FormContext";
 
@@ -84,7 +84,7 @@ export const Accordion: React.FC<Props> = ({ children, title, context }) => {
             setIsToggled(true);
           }}
         >
-          <Edit20 />
+          <Edit16 />
         </button>
       )}
       <AnimatePresence>
