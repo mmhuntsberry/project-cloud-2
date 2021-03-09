@@ -14,9 +14,10 @@ import styles from "./index.module.scss";
 import { PaymentContext } from "../../../contexts/PaymentContext";
 import { RegisterContext } from "../../../contexts/RegisterContext";
 import { FormContext, FORMSTATUS } from "../../../contexts/FormContext";
+import { formatCard, creditCardExpiresFormat } from "../../../utils";
+import states from "./utils/states";
 
 import "./overrides.scss";
-import { formatCard, creditCardExpiresFormat } from "../../../utils";
 
 const CREDIT_CARD_REGEX = RegExp(
   /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11}|62[0-9]{14})$/
@@ -233,7 +234,7 @@ export const Payment = ({
         defaultValue="placeholder-item"
         id="select-1"
         invalidText="A valid value is required"
-        labelText="Region"
+        labelText="State"
         light
         size="xl"
       >
@@ -242,11 +243,10 @@ export const Payment = ({
           text="Choose an option"
           value="placeholder-item"
         />
-        <SelectItemGroup label="Regions">
-          <SelectItem text="Option 1" value="option-1" />
-          <SelectItem text="Option 2" value="option-2" />
-          <SelectItem text="Option 3" value="option-3" />
-          <SelectItem text="Option 4" value="option-4" />
+        <SelectItemGroup label="States">
+          {states.map((state) => (
+            <SelectItem text={state} value={state} />
+          ))}
         </SelectItemGroup>
       </Select>
       <TextInput
