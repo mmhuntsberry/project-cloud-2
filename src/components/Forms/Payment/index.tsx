@@ -12,10 +12,12 @@ import {
 } from "carbon-components-react";
 import styles from "./index.module.scss";
 import { PaymentContext } from "../../../contexts/PaymentContext";
+import { RegisterContext } from "../../../contexts/RegisterContext";
 import { FormContext, FORMSTATUS } from "../../../contexts/FormContext";
+import { formatCard, creditCardExpiresFormat } from "../../../utils";
+import states from "./utils/states";
 
 import "./overrides.scss";
-import { formatCard, creditCardExpiresFormat } from "../../../utils";
 
 const CREDIT_CARD_REGEX = RegExp(
   /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11}|62[0-9]{14})$/
@@ -37,20 +39,24 @@ export const Payment = ({
 }) => {
   const paymentContext = useContext(PaymentContext);
   const formContext = useContext(FormContext);
+  const registerContext = useContext(RegisterContext);
 
   const isButtonDisabled =
     paymentContext.creditCard.success &&
     paymentContext.cvv.success &&
     paymentContext.expiration.success &&
-    paymentContext.firstname.success &&
-    paymentContext.lastname.success &&
+    (paymentContext.companyName.value ||
+      (paymentContext.firstname.success && paymentContext.lastname.success)) &&
     paymentContext.address01.success &&
     paymentContext.city.success &&
     paymentContext.zipcode.success;
 
   useEffect(() => {
-    console.log("TOGGLED", paymentContext.isFormToggled);
+    console.log("payment", paymentContext);
+    console.log("form", formContext);
+    console.log("register", registerContext);
   });
+
   return (
     <Form className={`${styles.formContainer} ${styles.formContainerGrid}`}>
       <div className={styles.gridSpanAll}>
@@ -80,26 +86,6 @@ export const Payment = ({
           invalid={paymentContext.creditCard.hasError}
         />
       </div>
-      {/* <TextInput
-        name="expiration"
-        className={styles.textInput}
-        size="xl"
-        light
-        id="expiration"
-        invalidText="Invalid error message."
-        labelText="Expiration date"
-        placeholder="mm/yy"
-        type="text"
-        value={paymentContext.expiration.value}
-        onChange={paymentContext.updateInput}
-        onBlur={(evt) => {
-          if (!EXPIRATION_REGEX.test(paymentContext.expiration.value)) {
-            return paymentContext.checkError(evt);
-          }
-          paymentContext.fieldSuccess(evt);
-        }}
-        invalid={paymentContext.expiration.hasError}
-      /> */}
       <DatePicker
         dateFormat="m/Y"
         datePickerType="simple"
@@ -147,34 +133,55 @@ export const Payment = ({
         }}
         invalid={paymentContext.cvv.hasError}
       />
-      <TextInput
-        name="firstname"
-        className={styles.textInput}
-        size="xl"
-        light
-        id="firstname"
-        invalidText="Invalid error message."
-        labelText="First name"
-        placeholder="Enter name"
-        type="text"
-        value={paymentContext.firstname.value}
-        onChange={paymentContext.updateInput}
-        onBlur={(evt) => paymentContext.fieldSuccess(evt)}
-      />
-      <TextInput
-        name="lastname"
-        className={styles.textInput}
-        size="xl"
-        light
-        id="lastname"
-        invalidText="Invalid error message."
-        labelText="Last name"
-        placeholder="Enter last name"
-        type="text"
-        value={paymentContext.lastname.value}
-        onChange={paymentContext.updateInput}
-        onBlur={(evt) => paymentContext.fieldSuccess(evt)}
-      />
+      {registerContext.accountType.value === "company" ? (
+        <div className={styles.gridSpanAll}>
+          <TextInput
+            name="companyName"
+            className={styles.textInput}
+            id="companyName"
+            invalidText="Invalid error message."
+            labelText="Company name"
+            placeholder="Enter company name"
+            type="text"
+            size="xl"
+            light
+            // value={paymentContext.companyName.value}
+            onChange={paymentContext.updateInput}
+          />
+        </div>
+      ) : (
+        <>
+          <TextInput
+            name="firstname"
+            className={styles.textInput}
+            size="xl"
+            light
+            id="firstname"
+            invalidText="Invalid error message."
+            labelText="First name"
+            placeholder="Enter name"
+            type="text"
+            value={paymentContext.firstname.value}
+            onChange={paymentContext.updateInput}
+            onBlur={(evt) => paymentContext.fieldSuccess(evt)}
+          />
+          <TextInput
+            name="lastname"
+            className={styles.textInput}
+            size="xl"
+            light
+            id="lastname"
+            invalidText="Invalid error message."
+            labelText="Last name"
+            placeholder="Enter last name"
+            type="text"
+            value={paymentContext.lastname.value}
+            onChange={paymentContext.updateInput}
+            onBlur={(evt) => paymentContext.fieldSuccess(evt)}
+          />
+        </>
+      )}
+
       <div className={styles.gridSpanAll}>
         <TextInput
           name="address01"
@@ -227,7 +234,7 @@ export const Payment = ({
         defaultValue="placeholder-item"
         id="select-1"
         invalidText="A valid value is required"
-        labelText="Region"
+        labelText="State"
         light
         size="xl"
       >
@@ -236,11 +243,10 @@ export const Payment = ({
           text="Choose an option"
           value="placeholder-item"
         />
-        <SelectItemGroup label="Regions">
-          <SelectItem text="Option 1" value="option-1" />
-          <SelectItem text="Option 2" value="option-2" />
-          <SelectItem text="Option 3" value="option-3" />
-          <SelectItem text="Option 4" value="option-4" />
+        <SelectItemGroup label="States">
+          {states.map((state) => (
+            <SelectItem text={state} value={state} />
+          ))}
         </SelectItemGroup>
       </Select>
       <TextInput

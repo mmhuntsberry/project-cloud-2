@@ -30,7 +30,7 @@ export const Sidebar = () => {
           $200 credit when you upgrade
         </h3>
         <p className={`${styles.sidebarSubheading}`}>
-          Receive a crediit for you first $200 of apps and services on us!
+          Receive a credit for you first $200 of apps and services on us!
         </p>
       </li>
     </ul>

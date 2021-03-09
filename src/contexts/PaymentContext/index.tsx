@@ -23,6 +23,13 @@ const initialState = {
     loading: false,
     success: false,
   },
+  companyName: {
+    value: "",
+    hasError: false,
+    error: "",
+    loading: false,
+    success: false,
+  },
   firstname: {
     value: "",
     hasError: false,
@@ -79,6 +86,7 @@ const initialState = {
 };
 
 const reducer = (state: LoginState, action: LoginAction) => {
+  console.log(action);
   switch (action.type) {
     case "UPDATE_INPUT":
       return {
@@ -240,6 +248,13 @@ interface LoginState {
     loading: boolean;
     success: boolean;
   };
+  companyName: {
+    value: string;
+    hasError: boolean;
+    error: string;
+    loading: boolean;
+    success: boolean;
+  };
   firstname: {
     value: string;
     hasError: boolean;
@@ -316,6 +331,13 @@ export const PaymentContextProvider: React.FC = ({ children }) => {
           error: state.cvv.error,
           loading: state.cvv.loading,
           success: state.cvv.success,
+        },
+        companyName: {
+          value: state.companyName.value,
+          hasError: state.companyName.hasError,
+          error: state.companyName.error,
+          loading: state.companyName.loading,
+          success: state.companyName.success,
         },
         firstname: {
           value: state.firstname.value,

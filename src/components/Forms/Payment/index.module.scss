@@ -9,13 +9,13 @@ $carbon--theme: $carbon--theme--g100;
   width: 100%;
   border-left: 2px solid #538bf7;
   padding-left: $spacing-07;
-  padding-right: $spacing-02;
+  padding-right: $spacing-07;
   padding-bottom: $spacing-07;
 }
 
 .formContainerGrid {
   grid-template-columns: 1fr 1fr;
-  max-width: 600px;
+  max-width: 100%;
   width: 100%;
   grid-gap: $spacing-05;
 }
