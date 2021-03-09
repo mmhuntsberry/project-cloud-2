@@ -1,11 +1,16 @@
+@import 'carbon-components/scss/globals/scss/typography';
+@import '@carbon/themes/scss/themes';
+$carbon--theme: $carbon--theme--g100;
+@include carbon--theme();
+
 .app {
   height: 100%;
-  padding: 0 32px;
+  padding-left: $layout-03;
 }
 
 @media (min-width: 1056px) {
   .app {
-    padding: 0 64px;
+    padding-left: $layout-05;
     background: url('https://res.cloudinary.com/mattthebunny/image/upload/a_vflip/c_scale,q_100,w_1851/a_90/v1614621697/3_AI_Ready_03-02_h4btd0.webp');
     background-repeat: no-repeat;
     background-size: 1400px;

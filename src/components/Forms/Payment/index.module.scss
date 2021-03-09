@@ -15,7 +15,7 @@ $carbon--theme: $carbon--theme--g100;
 
 .formContainerGrid {
   grid-template-columns: 1fr 1fr;
-  max-width: 600px;
+  max-width: 100%;
   width: 100%;
   grid-gap: $spacing-05;
 }

@@ -12,6 +12,7 @@ import {
 } from "carbon-components-react";
 import styles from "./index.module.scss";
 import { PaymentContext } from "../../../contexts/PaymentContext";
+import { RegisterContext } from "../../../contexts/RegisterContext";
 import { FormContext, FORMSTATUS } from "../../../contexts/FormContext";
 
 import "./overrides.scss";
@@ -37,20 +38,24 @@ export const Payment = ({
 }) => {
   const paymentContext = useContext(PaymentContext);
   const formContext = useContext(FormContext);
+  const registerContext = useContext(RegisterContext);
 
   const isButtonDisabled =
     paymentContext.creditCard.success &&
     paymentContext.cvv.success &&
     paymentContext.expiration.success &&
-    paymentContext.firstname.success &&
-    paymentContext.lastname.success &&
+    (paymentContext.companyName.value ||
+      (paymentContext.firstname.success && paymentContext.lastname.success)) &&
     paymentContext.address01.success &&
     paymentContext.city.success &&
     paymentContext.zipcode.success;
 
   useEffect(() => {
-    console.log("TOGGLED", paymentContext.isFormToggled);
+    console.log("payment", paymentContext);
+    console.log("form", formContext);
+    console.log("register", registerContext);
   });
+
   return (
     <Form className={`${styles.formContainer} ${styles.formContainerGrid}`}>
       <div className={styles.gridSpanAll}>
@@ -80,26 +85,6 @@ export const Payment = ({
           invalid={paymentContext.creditCard.hasError}
         />
       </div>
-      {/* <TextInput
-        name="expiration"
-        className={styles.textInput}
-        size="xl"
-        light
-        id="expiration"
-        invalidText="Invalid error message."
-        labelText="Expiration date"
-        placeholder="mm/yy"
-        type="text"
-        value={paymentContext.expiration.value}
-        onChange={paymentContext.updateInput}
-        onBlur={(evt) => {
-          if (!EXPIRATION_REGEX.test(paymentContext.expiration.value)) {
-            return paymentContext.checkError(evt);
-          }
-          paymentContext.fieldSuccess(evt);
-        }}
-        invalid={paymentContext.expiration.hasError}
-      /> */}
       <DatePicker
         dateFormat="m/Y"
         datePickerType="simple"
@@ -147,34 +132,55 @@ export const Payment = ({
         }}
         invalid={paymentContext.cvv.hasError}
       />
-      <TextInput
-        name="firstname"
-        className={styles.textInput}
-        size="xl"
-        light
-        id="firstname"
-        invalidText="Invalid error message."
-        labelText="First name"
-        placeholder="Enter name"
-        type="text"
-        value={paymentContext.firstname.value}
-        onChange={paymentContext.updateInput}
-        onBlur={(evt) => paymentContext.fieldSuccess(evt)}
-      />
-      <TextInput
-        name="lastname"
-        className={styles.textInput}
-        size="xl"
-        light
-        id="lastname"
-        invalidText="Invalid error message."
-        labelText="Last name"
-        placeholder="Enter last name"
-        type="text"
-        value={paymentContext.lastname.value}
-        onChange={paymentContext.updateInput}
-        onBlur={(evt) => paymentContext.fieldSuccess(evt)}
-      />
+      {registerContext.accountType.value === "company" ? (
+        <div className={styles.gridSpanAll}>
+          <TextInput
+            name="companyName"
+            className={styles.textInput}
+            id="companyName"
+            invalidText="Invalid error message."
+            labelText="Company name"
+            placeholder="Enter company name"
+            type="text"
+            size="xl"
+            light
+            // value={paymentContext.companyName.value}
+            onChange={paymentContext.updateInput}
+          />
+        </div>
+      ) : (
+        <>
+          <TextInput
+            name="firstname"
+            className={styles.textInput}
+            size="xl"
+            light
+            id="firstname"
+            invalidText="Invalid error message."
+            labelText="First name"
+            placeholder="Enter name"
+            type="text"
+            value={paymentContext.firstname.value}
+            onChange={paymentContext.updateInput}
+            onBlur={(evt) => paymentContext.fieldSuccess(evt)}
+          />
+          <TextInput
+            name="lastname"
+            className={styles.textInput}
+            size="xl"
+            light
+            id="lastname"
+            invalidText="Invalid error message."
+            labelText="Last name"
+            placeholder="Enter last name"
+            type="text"
+            value={paymentContext.lastname.value}
+            onChange={paymentContext.updateInput}
+            onBlur={(evt) => paymentContext.fieldSuccess(evt)}
+          />
+        </>
+      )}
+
       <div className={styles.gridSpanAll}>
         <TextInput
           name="address01"
