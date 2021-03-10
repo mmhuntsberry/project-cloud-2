@@ -5,11 +5,12 @@ $carbon--theme: $carbon--theme--g100;
 
 .formContainer {
   display: grid;
-  max-width: 400px;
+  // max-width: 400px;
   width: 100%;
   border-left: 2px solid $interactive-04;
   padding-bottom: $spacing-07;
   padding-left: $spacing-08;
+  padding-right: $spacing-08;
 }
 
 .formButton {
@@ -39,4 +40,5 @@ $carbon--theme: $carbon--theme--g100;
 
 .formLabel {
   color: $text-02;
+  white-space: nowrap;
 }

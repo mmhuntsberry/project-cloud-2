@@ -91,7 +91,7 @@ export const Payment = ({
       <div className={styles.gridSpanAll}>
         <TextInput
           name="creditCard"
-          className={styles.textIput}
+          className={styles.textInput}
           id="creditcard"
           invalidText="Invalid error message."
           labelText="Credit card"
@@ -108,7 +108,7 @@ export const Payment = ({
       <DatePicker
         dateFormat="m/Y"
         datePickerType="simple"
-        className="form__input"
+        className={styles.textInput}
         id="expiration"
         light
       >
@@ -230,7 +230,7 @@ export const Payment = ({
       <div className={styles.gridSpanAll}>
         <TextInput
           name="city"
-          className={styles.textIput}
+          className={styles.textInput}
           id="city"
           invalidText="Invalid error message."
           labelText="City"
@@ -244,6 +244,7 @@ export const Payment = ({
         />
       </div>
       <Select
+        className={styles.textInput}
         defaultValue="placeholder-item"
         id="select-1"
         invalidText="A valid value is required"

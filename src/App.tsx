@@ -38,7 +38,7 @@ const App = () => {
           <PaymentContextProvider>
             <div className={`${styles.app}`}>
               <GlobalHeader />
-              <div className="bx--grid">
+              <div className="bx--grid bx--grid--full-width">
                 <Header />
                 <div className={`bx--row`}>
                   {/* Treated as flex items need to contain to one div*/}
