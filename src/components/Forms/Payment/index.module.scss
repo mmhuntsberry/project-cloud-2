@@ -8,9 +8,7 @@ $carbon--theme: $carbon--theme--g100;
   max-width: 400px;
   width: 100%;
   border-left: 2px solid #538bf7;
-  padding-left: $spacing-07;
-  padding-right: $spacing-07;
-  padding-bottom: $spacing-07;
+  padding: 0 $spacing-07 $spacing-07;
 }
 
 .formContainerGrid {
