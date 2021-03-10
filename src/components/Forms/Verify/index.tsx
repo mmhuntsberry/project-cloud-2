@@ -47,7 +47,7 @@ export const Verify = ({
         }}
       >
         <TextInput
-          className="u-margin-b-05"
+          className={`${styles.textInput} u-margin-b-05`}
           id="verify-email"
           invalidText="Invalid error message."
           labelText="Verification code"

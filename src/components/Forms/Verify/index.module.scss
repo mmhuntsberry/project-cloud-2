@@ -14,8 +14,8 @@ $carbon--theme: $carbon--theme--g100;
 }
 
 .formButton {
-  max-width: 35%;
-  width: 35%;
+  max-width: 25%;
+  width: 25%;
 }
 
 .formDetails {
@@ -41,4 +41,8 @@ $carbon--theme: $carbon--theme--g100;
 .formLabel {
   color: $text-02;
   white-space: nowrap;
+}
+
+.textInput {
+  width: 50%;
 }

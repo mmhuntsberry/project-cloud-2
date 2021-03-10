@@ -27,11 +27,12 @@ $carbon--theme: $carbon--theme--g100;
 
 .formButton {
   max-width: 100%;
+  margin-top: 16px;
   width: 100%;
 }
 
 .formContainer {
-  height: 600px;
+  height: 500px;
   overflow: scroll;
   width: 1000px;
 }

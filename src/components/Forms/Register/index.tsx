@@ -94,7 +94,7 @@ export const Register = ({
                   size="xl"
                   light={true}
                   placeholder="Enter email"
-                  invalid={email.hasError}
+                  invalid={email.hasError && email.value.length > 0}
                   onChange={updateInput}
                   onBlur={(evt) => {
                     if (!isEmail(email.value)) {

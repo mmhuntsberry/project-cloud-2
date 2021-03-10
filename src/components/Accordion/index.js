@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 
 // Carbon imports
 import { Edit16 } from "@carbon/icons-react";
@@ -33,7 +34,6 @@ export const Accordion: React.FC<Props> = ({ children, title, context }) => {
     if (name === formContext.activeForm) {
       setIsToggled(true);
     }
-
     /* eslint-disable */
   }, [isFormToggled, formContext, name]);
   /* eslint-enable */
@@ -79,7 +79,7 @@ export const Accordion: React.FC<Props> = ({ children, title, context }) => {
       </button>
 
       {/* Only show the edit button in state of success is true */}
-      {isFormValid.success === true && (
+      {isFormValid.success === true && name !== "verify" && (
         <button
           className={styles.formSuccessEditButton}
           onClick={() => {

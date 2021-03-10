@@ -25,12 +25,7 @@ const App = () => {
     payment: false,
   });
 
-  const isButtonDisabled =
-    isFormComplete.payment && isFormComplete.register && isFormComplete.verify;
-
-  useEffect(() => {
-    console.log(JSON.stringify(isFormComplete, null, 4));
-  }, [isFormComplete]);
+  useEffect(() => {}, [isFormComplete]);
   return (
     <FormContextProvider>
       <RegisterContextProvider>
@@ -38,6 +33,7 @@ const App = () => {
           <PaymentContextProvider>
             <div className={`${styles.app}`}>
               <GlobalHeader />
+
               <div className="bx--grid bx--grid--full-width">
                 <Header />
                 <div className={`bx--row`}>
@@ -71,16 +67,25 @@ const App = () => {
                         setIsFormComplete={setIsFormComplete}
                       />
                     </Accordion>
-
+                  </div>
+                  <Sidebar />
+                  <div
+                    className={`${styles.formContainer} bx--col-lg-7 bx--col-md-6 bx--col-sm-4`}
+                  >
                     <Button
                       className={`${styles.formButton} u-margin-b-09`}
                       renderIcon={ArrowRight32}
-                      disabled={isButtonDisabled ? false : true}
+                      disabled={
+                        isFormComplete.payment &&
+                        isFormComplete.register &&
+                        isFormComplete.verify
+                          ? false
+                          : true
+                      }
                     >
                       Continue
                     </Button>
                   </div>
-                  <Sidebar />
                 </div>
               </div>
             </div>
