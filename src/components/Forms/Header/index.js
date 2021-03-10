@@ -1,8 +1,12 @@
 import React from "react";
+
+// Carbon imports
 import { Link } from "carbon-components-react";
 
+// Assets
 import IbmCloud from "../../../assets/ibmcloudlogo.png";
 
+// Styles
 import styles from "./index.module.scss";
 
 export const Header = () => {

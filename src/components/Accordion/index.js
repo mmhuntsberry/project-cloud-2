@@ -1,8 +1,13 @@
 import React, { useEffect, useContext } from "react";
-import { Edit16 } from "@carbon/icons-react";
 import { AnimatePresence, motion } from "framer-motion";
+
+// Carbon imports
+import { Edit16 } from "@carbon/icons-react";
+
+// Contexts
 import { FormContext } from "../../contexts/FormContext";
 
+// Styles
 import styles from "./index.module.scss";
 
 export const Accordion: React.FC<Props> = ({ children, title, context }) => {
@@ -15,6 +20,7 @@ export const Accordion: React.FC<Props> = ({ children, title, context }) => {
   } = useContext(context);
   const formContext = useContext(FormContext);
 
+  // Destructure from styles object
   const {
     accordionButtonIcon,
     accordionButtonIconIdle,
@@ -32,15 +38,12 @@ export const Accordion: React.FC<Props> = ({ children, title, context }) => {
   }, [isFormToggled, formContext, name]);
   /* eslint-enable */
 
+  // Get completed state
   const isCompleted = isFormValid.success;
 
   return (
     <div className={styles.accordionContainer}>
-      <button
-        className={`${accordionButton}`}
-        // TODO Remove button completely
-        // onClick={() => setIsToggled(!isFormToggled)}
-      >
+      <button className={`${accordionButton}`}>
         {/* Swap icons if isFormValid  is successful */}
         {isCompleted ? (
           <svg

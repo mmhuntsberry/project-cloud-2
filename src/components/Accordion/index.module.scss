@@ -14,7 +14,7 @@ $carbon--theme: $carbon--theme--g100;
   border-left: 2px solid $interactive-04;
   text-align: left;
   align-items: center;
-  gap: 8px;
+  gap: $spacing-03;
 }
 
 .accordionBody {

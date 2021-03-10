@@ -8,9 +8,10 @@ $carbon--theme: $carbon--theme--g100;
   padding-left: $layout-03;
 }
 
-@media (min-width: 1056px) {
+@include carbon--breakpoint-up(lg) {
   .app {
     padding-left: $layout-05;
+    overflow-x: hidden;
     background: url('https://res.cloudinary.com/mattthebunny/image/upload/a_vflip/c_scale,q_100,w_1851/a_90/v1614621697/3_AI_Ready_03-02_h4btd0.webp');
     background-repeat: no-repeat;
     background-size: 1400px;
@@ -18,13 +19,7 @@ $carbon--theme: $carbon--theme--g100;
   }
 }
 
-@media (min-width: 1312px) {
-  .app {
-    background-position: bottom -175px right -600px;
-  }
-}
-
-@media (min-width: 1584px) {
+@include carbon--breakpoint-up(xlg) {
   .app {
     background-position: bottom -175px right -500px;
   }

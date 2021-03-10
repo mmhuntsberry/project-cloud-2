@@ -1,4 +1,6 @@
-import { useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
+
+// Carbon imports
 import {
   Form,
   TextInput,
@@ -10,21 +12,20 @@ import {
   DatePicker,
   DatePickerInput,
 } from "carbon-components-react";
-import styles from "./index.module.scss";
+
+// Contexts
 import { PaymentContext } from "../../../contexts/PaymentContext";
 import { RegisterContext } from "../../../contexts/RegisterContext";
 import { FormContext, FORMSTATUS } from "../../../contexts/FormContext";
-import { formatCard, creditCardExpiresFormat } from "../../../utils";
+
+// Utils
 import states from "./utils/states";
+import { formatCard, creditCardExpiresFormat } from "../../../utils";
+import { CREDIT_CARD_REGEX, EXPIRATION_REGEX, CVV_REGEX } from "./utils";
 
+// Styles
+import styles from "./index.module.scss";
 import "./overrides.scss";
-
-const CREDIT_CARD_REGEX = RegExp(
-  /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11}|62[0-9]{14})$/
-);
-
-const EXPIRATION_REGEX = RegExp(/^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/);
-const CVV_REGEX = RegExp(/^[0-9]{3,4}$/);
 
 export const Payment = ({
   isFormComplete,
@@ -37,10 +38,19 @@ export const Payment = ({
     payment: boolean;
   }) => void;
 }) => {
+  /**
+   * Contexts
+   */
   const paymentContext = useContext(PaymentContext);
   const formContext = useContext(FormContext);
   const registerContext = useContext(RegisterContext);
 
+  /**
+   * Button Constraints
+   *
+   * Button remains disabled until all contstraints
+   * are met.
+   */
   const isButtonDisabled =
     paymentContext.creditCard.success &&
     paymentContext.cvv.success &&
@@ -51,11 +61,30 @@ export const Payment = ({
     paymentContext.city.success &&
     paymentContext.zipcode.success;
 
-  useEffect(() => {
-    console.log("payment", paymentContext);
-    console.log("form", formContext);
-    console.log("register", registerContext);
-  });
+  const handleCreditCardBlur = (evt: React.FocusEvent<HTMLInputElement>) => {
+    /**
+     * String needs all spaces removed in order to be tested.
+     */
+    const cleanStr = paymentContext.creditCard.value.replaceAll(" ", "");
+    if (!CREDIT_CARD_REGEX.test(cleanStr)) {
+      return paymentContext.checkError(evt);
+    }
+    paymentContext.fieldSuccess(evt);
+  };
+
+  const handleExpiresBlur = (evt: React.FocusEvent<HTMLInputElement>) => {
+    if (!EXPIRATION_REGEX.test(paymentContext.expiration.value)) {
+      return paymentContext.checkError(evt);
+    }
+    paymentContext.fieldSuccess(evt);
+  };
+
+  const handleCvvBlur = (evt: React.FocusEvent<HTMLInputElement>) => {
+    if (!CVV_REGEX.test(paymentContext.cvv.value)) {
+      return paymentContext.checkError(evt);
+    }
+    paymentContext.fieldSuccess(evt);
+  };
 
   return (
     <Form className={`${styles.formContainer} ${styles.formContainerGrid}`}>
@@ -72,17 +101,7 @@ export const Payment = ({
           light
           value={formatCard(paymentContext.creditCard.value)}
           onChange={paymentContext.updateInput}
-          onBlur={(evt) => {
-            const cleanStr = paymentContext.creditCard.value.replaceAll(
-              " ",
-              ""
-            );
-            if (!CREDIT_CARD_REGEX.test(cleanStr)) {
-              return paymentContext.checkError(evt);
-            }
-
-            paymentContext.fieldSuccess(evt);
-          }}
+          onBlur={handleCreditCardBlur}
           invalid={paymentContext.creditCard.hasError}
         />
       </div>
@@ -104,12 +123,7 @@ export const Payment = ({
           name="expiration"
           value={creditCardExpiresFormat(paymentContext.expiration.value)}
           onChange={paymentContext.updateInput}
-          onBlur={(evt) => {
-            if (!EXPIRATION_REGEX.test(paymentContext.expiration.value)) {
-              return paymentContext.checkError(evt);
-            }
-            paymentContext.fieldSuccess(evt);
-          }}
+          onBlur={handleExpiresBlur}
         />
       </DatePicker>
 
@@ -125,14 +139,14 @@ export const Payment = ({
         type="text"
         value={paymentContext.cvv.value}
         onChange={paymentContext.updateInput}
-        onBlur={(evt) => {
-          if (!CVV_REGEX.test(paymentContext.cvv.value)) {
-            return paymentContext.checkError(evt);
-          }
-          paymentContext.fieldSuccess(evt);
-        }}
+        onBlur={handleCvvBlur}
         invalid={paymentContext.cvv.hasError}
       />
+      {/* 
+        Toggle between inputs depending on if user
+        choose "company" or "personal" account in 
+        step one.
+      */}
       {registerContext.accountType.value === "company" ? (
         <div className={styles.gridSpanAll}>
           <TextInput
@@ -145,7 +159,6 @@ export const Payment = ({
             type="text"
             size="xl"
             light
-            // value={paymentContext.companyName.value}
             onChange={paymentContext.updateInput}
           />
         </div>
