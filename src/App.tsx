@@ -25,6 +25,9 @@ const App = () => {
     payment: false,
   });
 
+  const isButtonDisabled =
+    isFormComplete.payment && isFormComplete.register && isFormComplete.verify;
+
   useEffect(() => {}, [isFormComplete]);
   return (
     <FormContextProvider>
@@ -75,13 +78,7 @@ const App = () => {
                     <Button
                       className={`${styles.formButton} u-margin-b-09`}
                       renderIcon={ArrowRight32}
-                      disabled={
-                        isFormComplete.payment &&
-                        isFormComplete.register &&
-                        isFormComplete.verify
-                          ? false
-                          : true
-                      }
+                      disabled={isButtonDisabled ? false : true}
                     >
                       Continue
                     </Button>
