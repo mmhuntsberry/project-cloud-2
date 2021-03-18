@@ -226,8 +226,7 @@ export const Payment = ({
             />
           </fieldset>
         )}
-
-        {!isAddressChecked && (
+        {/* {!isAddressChecked && (
           <>
             <h3 className={styles.companyInformation}>Company Information</h3>
             <div className={`${styles.formContainerGrid}`}>
@@ -343,7 +342,7 @@ export const Payment = ({
               />
             </div>
           </>
-        )}
+        )} */}
         {/* <Button
           disabled={!isButtonDisabled}
           className={styles.formButton}

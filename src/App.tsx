@@ -73,7 +73,7 @@ const App = () => {
                   </div>
                   <Sidebar />
                   <div
-                    className={`${styles.formContainer} bx--col-lg-7 bx--col-md-6 bx--col-sm-4`}
+                    className={`bx--col-lg-7 bx--col-md-6 bx--col-sm-4`}
                   >
                     <Button
                       className={`${styles.formButton} u-margin-b-09`}
