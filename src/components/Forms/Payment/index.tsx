@@ -1,10 +1,9 @@
-import React, { useContext, useState, useEffect, useCallback } from "react";
+import React, { useContext, useState, useEffect } from "react";
 
 // Carbon imports
 import {
   Form,
   TextInput,
-  Button,
   Select,
   SelectItem,
   SelectItemGroup,

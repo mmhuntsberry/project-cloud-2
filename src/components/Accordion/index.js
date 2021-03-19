@@ -1,6 +1,5 @@
 import React, { useEffect, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useLocation } from "react-router-dom";
 
 // Carbon imports
 import { Edit16 } from "@carbon/icons-react";
