@@ -100,7 +100,7 @@ const App = () => {
                     </Button>
                   </div> */}
                   <div
-                    className={`${styles.formContainer} bx--col-lg-16 bx--col-md-6 bx--col-sm-4`}
+                    className={`${styles.formContainer} u-margin-t-05 bx--col-lg-16 bx--col-md-6 bx--col-sm-4`}
                   >
                     <p className={styles.terms}>
                       By submitting this form, you acknowledge that you have

@@ -274,7 +274,7 @@ export const Payment = ({
             size="xl"
           >
             <SelectItem
-              className="form__input"
+              className={styles.textInput}
               text="Choose an option"
               value="placeholder-item"
             />
