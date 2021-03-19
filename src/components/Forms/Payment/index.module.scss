@@ -38,9 +38,5 @@ $carbon--theme: $carbon--theme--g100;
 .companyInformation {
   @include carbon--type-style('productive-heading-03');
   color: $text-01;
-  padding-bottom: $spacing-05;
-}
-
-.textInputZip {
-  margin-bottom: 32px;
+  margin: $spacing-09 0 $spacing-05;
 }

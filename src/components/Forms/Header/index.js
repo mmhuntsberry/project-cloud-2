@@ -13,7 +13,7 @@ export const Header = () => {
   return (
     <div className={`${styles.formHeaderContainer} u-pad-t-layout-06`}>
       <img className={styles.formHeaderIcon} src={IbmCloud} alt="IBM Cloud" />
-      <h2 className="u-pad-t-layout-03">Create an IBM account</h2>
+      <h2 className="u-pad-t-layout-03">Create a free IBM Cloud account</h2>
       <div className={styles.formHeaderLabelContainer}>
         <p className={`${styles.formHeaderLabel} u-margin-r-02`}>
           Already have a IBM Cloud account?

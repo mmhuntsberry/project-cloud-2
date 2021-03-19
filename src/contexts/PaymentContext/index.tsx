@@ -86,7 +86,6 @@ const initialState = {
 };
 
 const reducer = (state: LoginState, action: LoginAction) => {
-  console.log(action);
   switch (action.type) {
     case "UPDATE_INPUT":
       return {

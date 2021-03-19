@@ -47,6 +47,7 @@ export const Verify = ({
         }}
       >
         <TextInput
+          autoFocus
           className={`${styles.textInput} u-margin-b-05`}
           id="verify-email"
           invalidText="Invalid error message."

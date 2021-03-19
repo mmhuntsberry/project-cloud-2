@@ -87,6 +87,7 @@ export const Register = ({
             <Form onSubmit={onSubmit} className={styles.formContainer}>
               <div className={styles.formInputContainer}>
                 <TextInput
+                  autoFocus
                   id="email"
                   className={styles.textInput}
                   labelText="Email"

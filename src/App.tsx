@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "./App.scss";
 import GlobalHeader from "./components/GlobalHeader";
 import { Register } from "./components/Forms/Register";
 import { Verify } from "./components/Forms/Verify";
@@ -14,8 +13,9 @@ import { PaymentContextProvider } from "./contexts/PaymentContext";
 import { RegisterContext } from "./contexts/RegisterContext";
 import { VerifyContext } from "./contexts/VerifyContext";
 import { PaymentContext } from "./contexts/PaymentContext";
-import { Button } from "carbon-components-react";
+import { Button, Link } from "carbon-components-react";
 import { ArrowRight32 } from "@carbon/icons-react";
+import "./App.scss";
 import styles from "./app.module.scss";
 
 const App = () => {
@@ -42,7 +42,7 @@ const App = () => {
                 <div className={`bx--row`}>
                   {/* Treated as flex items need to contain to one div*/}
                   <div
-                    className={`${styles.formContainer} bx--col-lg-7 bx--col-md-6 bx--col-sm-4`}
+                    className={`${styles.formContainer} bx--col-lg-16 bx--col-md-6 bx--col-sm-4`}
                   >
                     <Accordion
                       title="Account information"
@@ -71,10 +71,54 @@ const App = () => {
                       />
                     </Accordion>
                   </div>
+
                   <Sidebar />
+                  {/* <div className={`bx--col-lg-7 bx--col-md-6 bx--col-sm-4`}>
+                    <p className={styles.terms}>
+                      By submitting this form, you acknowledge that you have
+                      read and understand both the{" "}
+                      <Link href="#" className={styles.termsLink}>
+                        IBM Privacy Statement{" "}
+                      </Link>
+                      and{" "}
+                      <Link href="#" className={styles.termsLink}>
+                        Terms and Conditions
+                      </Link>
+                      , and that you grant IBM permission to contact you to
+                      facilitate a successful experience.
+                    </p>
+                    <p className={styles.unsubscribe}>
+                      You may unsubscribe from communications at any time by
+                      clicking the unsubscribe link within any email.
+                    </p>
+                    <Button
+                      className={`${styles.formButton} u-margin-b-09`}
+                      renderIcon={ArrowRight32}
+                      disabled={isButtonDisabled ? false : true}
+                    >
+                      Continue
+                    </Button>
+                  </div> */}
                   <div
-                    className={`bx--col-lg-7 bx--col-md-6 bx--col-sm-4`}
+                    className={`${styles.formContainer} bx--col-lg-16 bx--col-md-6 bx--col-sm-4`}
                   >
+                    <p className={styles.terms}>
+                      By submitting this form, you acknowledge that you have
+                      read and understand both the{" "}
+                      <Link href="#" className={styles.termsLink}>
+                        IBM Privacy Statement{" "}
+                      </Link>
+                      and{" "}
+                      <Link href="#" className={styles.termsLink}>
+                        Terms and Conditions
+                      </Link>
+                      , and that you grant IBM permission to contact you to
+                      facilitate a successful experience.
+                    </p>
+                    <p className={styles.unsubscribe}>
+                      You may unsubscribe from communications at any time by
+                      clicking the unsubscribe link within any email.
+                    </p>
                     <Button
                       className={`${styles.formButton} u-margin-b-09`}
                       renderIcon={ArrowRight32}
