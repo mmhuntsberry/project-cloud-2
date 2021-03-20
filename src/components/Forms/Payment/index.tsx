@@ -67,10 +67,10 @@ export const Payment = ({
     if (
       paymentContext.creditCard.success &&
       paymentContext.cvv.success &&
-      paymentContext.expiration.success
-      // paymentContext.address01.success &&
-      // paymentContext.city.success &&
-      // paymentContext.zipcode &&
+      paymentContext.expiration.success &&
+      paymentContext.address01.success &&
+      paymentContext.city.success &&
+      paymentContext.zipcode.success
       // (paymentContext.companyName.success ||
       //   (paymentContext.firstname.success && paymentContext.lastname.success))
     ) {
@@ -93,7 +93,7 @@ export const Payment = ({
     paymentContext.creditCard.success,
     paymentContext.cvv.success,
     paymentContext.expiration.success,
-    // paymentContext.address01.success,
+    paymentContext.address01.success,
     paymentContext.city.success,
     paymentContext.zipcode.success,
     // paymentContext.companyName.success,
@@ -193,385 +193,272 @@ export const Payment = ({
           paymentContext.cvv.hasError && paymentContext.cvv.value.length > 0
         }
       />
+      <TextInput
+        name="firstname"
+        className={styles.textInput}
+        size="xl"
+        light
+        id="firstname"
+        invalidText="Invalid error message."
+        labelText="First name"
+        placeholder="Enter name"
+        type="text"
+        value={paymentContext.firstname.value}
+        onChange={paymentContext.updateInput}
+        onBlur={(evt) => paymentContext.fieldSuccess(evt)}
+      />
+      <TextInput
+        name="lastname"
+        className={styles.textInput}
+        size="xl"
+        light
+        id="lastname"
+        invalidText="Invalid error message."
+        labelText="Last name"
+        placeholder="Enter last name"
+        type="text"
+        value={paymentContext.lastname.value}
+        onChange={paymentContext.updateInput}
+        onBlur={(evt) => paymentContext.fieldSuccess(evt)}
+      />
       {/* 
         Toggle between inputs depending on if user
         choose "company" or "personal" account in 
         step one.
       */}
-      {registerContext.accountType.value === "company" ? (
-        <>
-          <div className={styles.gridSpanAll}>
-            <TextInput
-              name="companyName"
-              className={styles.textInput}
-              id="companyName"
-              invalidText="Invalid error message."
-              labelText="Company name"
-              placeholder="Enter company name"
-              type="text"
-              size="xl"
-              light
-              value={paymentContext.companyName.value}
-              onChange={paymentContext.updateInput}
-              onBlur={(evt) => paymentContext.fieldSuccess(evt)}
-            />
-          </div>
-          <div className={styles.gridSpanAll}>
-            <TextInput
-              name="address01"
-              className={styles.textInput}
-              id="address01"
-              invalidText="Invalid error message."
-              labelText="Address line 1"
-              placeholder="Enter address line 1"
-              type="text"
-              size="xl"
-              light
-              value={paymentContext.address01.value}
-              onChange={paymentContext.updateInput}
-              onBlur={(evt) => paymentContext.fieldSuccess(evt)}
-            />
-          </div>
-          <div className={styles.gridSpanAll}>
-            <TextInput
-              name="address02"
-              className={styles.textInput}
-              id="address02"
-              invalidText="Invalid error message."
-              labelText="Address line 2"
-              placeholder="Enter address line 2"
-              type="text"
-              size="xl"
-              light
-              value={paymentContext.address02.value}
-              onChange={paymentContext.updateInput}
-              onBlur={(evt) => paymentContext.fieldSuccess(evt)}
-            />
-          </div>
-          <div className={styles.gridSpanAll}>
-            <TextInput
-              name="city"
-              className={styles.textInput}
-              id="city"
-              invalidText="Invalid error message."
-              labelText="City"
-              placeholder="Enter city"
-              type="text"
-              size="xl"
-              light
-              value={paymentContext.city.value}
-              onChange={paymentContext.updateInput}
-              onBlur={(evt) => paymentContext.fieldSuccess(evt)}
-            />
-          </div>
-          <Select
-            className={styles.textInput}
-            defaultValue="placeholder-item"
-            id="select-1"
-            invalidText="A valid value is required"
-            labelText="State"
-            light
-            size="xl"
-          >
-            <SelectItem
-              className={styles.textInput}
-              text="Choose an option"
-              value="placeholder-item"
-            />
-            <SelectItemGroup label="States">
-              {states.map((state) => (
-                <SelectItem text={state} value={state} />
-              ))}
-            </SelectItemGroup>
-          </Select>
-          <TextInput
-            name="zipcode"
-            className={styles.textInputZip}
-            id="zipcode"
-            invalidText="Invalid error message."
-            labelText="Zip code"
-            placeholder="Enter zip code"
-            type="text"
-            value={paymentContext.zipcode.value}
-            onChange={paymentContext.updateInput}
-            onBlur={(evt) => paymentContext.fieldSuccess(evt)}
-            size="xl"
-            light
-          />
-        </>
-      ) : (
-        <>
-          <TextInput
-            name="firstname"
-            className={styles.textInput}
-            size="xl"
-            light
-            id="firstname"
-            invalidText="Invalid error message."
-            labelText="First name"
-            placeholder="Enter name"
-            type="text"
-            value={paymentContext.firstname.value}
-            onChange={paymentContext.updateInput}
-            onBlur={(evt) => paymentContext.fieldSuccess(evt)}
-          />
-          <TextInput
-            name="lastname"
-            className={styles.textInput}
-            size="xl"
-            light
-            id="lastname"
-            invalidText="Invalid error message."
-            labelText="Last name"
-            placeholder="Enter last name"
-            type="text"
-            value={paymentContext.lastname.value}
-            onChange={paymentContext.updateInput}
-            onBlur={(evt) => paymentContext.fieldSuccess(evt)}
-          />
-          <div className={styles.gridSpanAll}>
-            <TextInput
-              name="address01"
-              className={styles.textInput}
-              id="address01"
-              invalidText="Invalid error message."
-              labelText="Address line 1"
-              placeholder="Enter address line 1"
-              type="text"
-              size="xl"
-              light
-              value={paymentContext.address01.value}
-              onChange={paymentContext.updateInput}
-              onBlur={(evt) => paymentContext.fieldSuccess(evt)}
-            />
-          </div>
-          <div className={styles.gridSpanAll}>
-            <TextInput
-              name="address02"
-              className={styles.textInput}
-              id="address02"
-              invalidText="Invalid error message."
-              labelText="Address line 2"
-              placeholder="Enter address line 2"
-              type="text"
-              size="xl"
-              light
-              value={paymentContext.address02.value}
-              onChange={paymentContext.updateInput}
-              onBlur={(evt) => paymentContext.fieldSuccess(evt)}
-            />
-          </div>
-          <div className={styles.gridSpanAll}>
-            <TextInput
-              name="city"
-              className={styles.textInput}
-              id="city"
-              invalidText="Invalid error message."
-              labelText="City"
-              placeholder="Enter city"
-              type="text"
-              size="xl"
-              light
-              value={paymentContext.city.value}
-              onChange={paymentContext.updateInput}
-              onBlur={(evt) => paymentContext.fieldSuccess(evt)}
-            />
-          </div>
-          <Select
-            className={styles.textInput}
-            defaultValue="placeholder-item"
-            id="select-1"
-            invalidText="A valid value is required"
-            labelText="State"
-            light
-            size="xl"
-          >
-            <SelectItem
-              className="form__input"
-              text="Choose an option"
-              value="placeholder-item"
-            />
-            <SelectItemGroup label="States">
-              {states.map((state) => (
-                <SelectItem text={state} value={state} />
-              ))}
-            </SelectItemGroup>
-          </Select>
-          <TextInput
-            name="zipcode"
-            className={styles.textInputZip}
-            id="zipcode"
-            invalidText="Invalid error message."
-            labelText="Zip code"
-            placeholder="Enter zip code"
-            type="text"
-            value={paymentContext.zipcode.value}
-            onChange={paymentContext.updateInput}
-            onBlur={(evt) => paymentContext.fieldSuccess(evt)}
-            size="xl"
-            light
-          />
-        </>
-      )}
-
-      <div className={`${styles.gridSpanAll} u-margin-t-02`}>
-        <Checkbox
-          defaultChecked
-          className={styles.formCheckbox}
-          labelText={
-            registerContext.accountType.value === "company"
-              ? "My billing address is the same as my company address"
-              : "My billing address is the same as my home address"
-          }
-          id="checked-label-1"
-          onChange={() => setIsAddressChecked(!isAddressChecked)}
+      {registerContext.accountType.value === "company" && (
+        <TextInput
+          name="companyName"
+          className={styles.textInput}
+          id="companyName"
+          invalidText="Invalid error message."
+          labelText="Company name"
+          placeholder="Enter company name"
+          type="text"
+          size="xl"
+          light
+          value={paymentContext.companyName.value}
+          onChange={paymentContext.updateInput}
+          onBlur={(evt) => paymentContext.fieldSuccess(evt)}
         />
+      )}
+      {registerContext.accountType.value === "company" ? (
+        <Select
+          defaultValue="USA"
+          id="select-1"
+          light
+          invalidText="A valid value is required"
+          labelText="Country and Region"
+          size="xl"
+          className="select__input"
+        >
+          <SelectItem className="form__input" text="USA" value="USA" />
+        </Select>
+      ) : (
+        <div className={styles.gridSpanAll}>
+          <Select
+            defaultValue="USA"
+            id="select-1"
+            light
+            invalidText="A valid value is required"
+            labelText="Country and Region"
+            size="xl"
+            className={styles.selectInput}
+          >
+            <SelectItem className="form__input" text="USA" value="USA" />
+          </Select>
+        </div>
+      )}
+      <div className={styles.gridSpanAll}>
+        <TextInput
+          name="address01"
+          className={styles.textInput}
+          id="address01"
+          invalidText="Invalid error message."
+          labelText="Address line 1"
+          placeholder="Enter address line 1"
+          type="text"
+          size="xl"
+          light
+          value={paymentContext.address01.value}
+          onChange={paymentContext.updateInput}
+          onBlur={(evt) => paymentContext.fieldSuccess(evt)}
+        />
+      </div>
+      <div className={styles.gridSpanAll}>
+        <TextInput
+          name="address02"
+          className={styles.textInput}
+          id="address02"
+          invalidText="Invalid error message."
+          labelText="Address line 2"
+          placeholder="Enter address line 2"
+          type="text"
+          size="xl"
+          light
+          value={paymentContext.address02.value}
+          onChange={paymentContext.updateInput}
+          onBlur={(evt) => paymentContext.fieldSuccess(evt)}
+        />
+      </div>
+      <div className={styles.gridSpanAll}>
+        <TextInput
+          name="city"
+          className={styles.textInput}
+          id="city"
+          invalidText="Invalid error message."
+          labelText="City"
+          placeholder="Enter city"
+          type="text"
+          size="xl"
+          light
+          value={paymentContext.city.value}
+          onChange={paymentContext.updateInput}
+          onBlur={(evt) => paymentContext.fieldSuccess(evt)}
+        />
+      </div>
+      <Select
+        className={styles.textInput}
+        defaultValue="placeholder-item"
+        id="select-1"
+        invalidText="A valid value is required"
+        labelText="State"
+        light
+        size="xl"
+      >
+        <SelectItem
+          className={styles.textInput}
+          text="Choose an option"
+          value="placeholder-item"
+        />
+        <SelectItemGroup label="States">
+          {states.map((state) => (
+            <SelectItem text={state} value={state} />
+          ))}
+        </SelectItemGroup>
+      </Select>
+      <TextInput
+        name="zipcode"
+        className={styles.textInputZip}
+        id="zipcode"
+        invalidText="Invalid error message."
+        labelText="Zip code"
+        placeholder="Enter zip code"
+        type="text"
+        value={paymentContext.zipcode.value}
+        onChange={paymentContext.updateInput}
+        onBlur={(evt) => paymentContext.fieldSuccess(evt)}
+        size="xl"
+        light
+      />
 
-        {!isAddressChecked && (
-          <>
-            {registerContext.accountType.value === "company" ? (
-              <>
-                <h3 className={styles.companyInformation}>
-                  Company Information
-                </h3>
-              </>
-            ) : (
-              <>
-                <h3 className={styles.companyInformation}>
-                  Billing Information
-                </h3>
-                <div className={`${styles.formContainerGrid}`}>
+      {registerContext.accountType.value === "company" && (
+        <div className={`${styles.gridSpanAll} u-margin-t-02`}>
+          <Checkbox
+            defaultChecked
+            className={styles.formCheckbox}
+            labelText={
+              registerContext.accountType.value === "company"
+                ? "My billing address is the same as my company address"
+                : "My billing address is the same as my home address"
+            }
+            id="checked-label-1"
+            onChange={() => setIsAddressChecked(!isAddressChecked)}
+          />
+          {!isAddressChecked && (
+            <>
+              <h3 className={styles.companyInformation}>Company Information</h3>
+
+              <div className={`${styles.formContainerGrid}`}>
+                <div className={styles.gridSpanAll}>
                   <TextInput
-                    name="firstname"
+                    autoFocus
+                    name="address01"
                     className={styles.textInput}
+                    id="address01"
+                    invalidText="Invalid error message."
+                    labelText="Address line 1"
+                    placeholder="Enter address line 1"
+                    type="text"
                     size="xl"
                     light
-                    id="firstname"
-                    invalidText="Invalid error message."
-                    labelText="First name"
-                    placeholder="Enter name"
-                    type="text"
-                    // value={paymentContext.firstname.value}
-                    onChange={paymentContext.updateInput}
-                    onBlur={(evt) => paymentContext.fieldSuccess(evt)}
-                  />
-                  <TextInput
-                    name="lastname"
-                    className={styles.textInput}
-                    size="xl"
-                    light
-                    id="lastname"
-                    invalidText="Invalid error message."
-                    labelText="Last name"
-                    placeholder="Enter last name"
-                    type="text"
-                    // value={paymentContext.lastname.value}
+                    // value={paymentContext.address01.value}
                     onChange={paymentContext.updateInput}
                     onBlur={(evt) => paymentContext.fieldSuccess(evt)}
                   />
                 </div>
-              </>
-            )}
-            <div className={`${styles.formContainerGrid}`}>
-              <div className={styles.gridSpanAll}>
-                <TextInput
-                  autoFocus
-                  name="address01"
+                <div className={styles.gridSpanAll}>
+                  <TextInput
+                    name="address02"
+                    className={styles.textInput}
+                    id="address02"
+                    invalidText="Invalid error message."
+                    labelText="Address line 2"
+                    placeholder="Enter address line 2"
+                    type="text"
+                    size="xl"
+                    light
+                    // value={paymentContext.address02.value}
+                    onChange={paymentContext.updateInput}
+                    onBlur={(evt) => paymentContext.fieldSuccess(evt)}
+                  />
+                </div>
+                <div className={styles.gridSpanAll}>
+                  <TextInput
+                    name="city"
+                    className={styles.textInput}
+                    id="city"
+                    invalidText="Invalid error message."
+                    labelText="City"
+                    placeholder="Enter city"
+                    type="text"
+                    size="xl"
+                    light
+                    // value={paymentContext.city.value}
+                    onChange={paymentContext.updateInput}
+                    onBlur={(evt) => paymentContext.fieldSuccess(evt)}
+                  />
+                </div>
+
+                <Select
                   className={styles.textInput}
-                  id="address01"
-                  invalidText="Invalid error message."
-                  labelText="Address line 1"
-                  placeholder="Enter address line 1"
-                  type="text"
-                  size="xl"
+                  defaultValue="placeholder-item"
+                  id="select-1"
+                  invalidText="A valid value is required"
+                  labelText="State"
                   light
-                  // value={paymentContext.address01.value}
+                  size="xl"
+                >
+                  <SelectItem
+                    className="form__input"
+                    text="Choose an option"
+                    value="placeholder-item"
+                  />
+                  <SelectItemGroup label="States">
+                    {states.map((state) => (
+                      <SelectItem text={state} value={state} />
+                    ))}
+                  </SelectItemGroup>
+                </Select>
+                <TextInput
+                  name="zipcode"
+                  className={styles.textInputZip}
+                  id="zipcode"
+                  invalidText="Invalid error message."
+                  labelText="Zip code"
+                  placeholder="Enter zip code"
+                  type="text"
+                  // value={paymentContext.zipcode.value}
                   onChange={paymentContext.updateInput}
                   onBlur={(evt) => paymentContext.fieldSuccess(evt)}
-                />
-              </div>
-              <div className={styles.gridSpanAll}>
-                <TextInput
-                  name="address02"
-                  className={styles.textInput}
-                  id="address02"
-                  invalidText="Invalid error message."
-                  labelText="Address line 2"
-                  placeholder="Enter address line 2"
-                  type="text"
                   size="xl"
                   light
-                  // value={paymentContext.address02.value}
-                  onChange={paymentContext.updateInput}
-                  onBlur={(evt) => paymentContext.fieldSuccess(evt)}
                 />
               </div>
-              <div className={styles.gridSpanAll}>
-                <TextInput
-                  name="city"
-                  className={styles.textInput}
-                  id="city"
-                  invalidText="Invalid error message."
-                  labelText="City"
-                  placeholder="Enter city"
-                  type="text"
-                  size="xl"
-                  light
-                  // value={paymentContext.city.value}
-                  onChange={paymentContext.updateInput}
-                  onBlur={(evt) => paymentContext.fieldSuccess(evt)}
-                />
-              </div>
-              <Select
-                className={styles.textInput}
-                defaultValue="placeholder-item"
-                id="select-1"
-                invalidText="A valid value is required"
-                labelText="State"
-                light
-                size="xl"
-              >
-                <SelectItem
-                  className="form__input"
-                  text="Choose an option"
-                  value="placeholder-item"
-                />
-                <SelectItemGroup label="States">
-                  {states.map((state) => (
-                    <SelectItem text={state} value={state} />
-                  ))}
-                </SelectItemGroup>
-              </Select>
-              <TextInput
-                name="zipcode"
-                className={styles.textInputZip}
-                id="zipcode"
-                invalidText="Invalid error message."
-                labelText="Zip code"
-                placeholder="Enter zip code"
-                type="text"
-                // value={paymentContext.zipcode.value}
-                onChange={paymentContext.updateInput}
-                onBlur={(evt) => paymentContext.fieldSuccess(evt)}
-                size="xl"
-                light
-              />
-            </div>
-          </>
-        )}
-        {/* <Button
-          disabled={!isButtonDisabled}
-          className={styles.formButton}
-          onClick={() => {
-            paymentContext.formSuccess();
-            paymentContext.setIsToggled(false);
-            formContext.setActiveForm(FORMSTATUS.COMPLETE);
-            setIsFormComplete({ ...isFormComplete, payment: true });
-          }}
-        >
-          Next
-        </Button> */}
-      </div>
+            </>
+          )}
+        </div>
+      )}
     </Form>
   );
 };

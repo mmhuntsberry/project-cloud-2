@@ -3922,19 +3922,19 @@ input:not(output):not([data-invalid]):-moz-ui-invalid {
   stroke-dashoffset: 0;
 }
 
-.bx--loading-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(var(--cds-ui-02, #393939), 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background-color 720ms cubic-bezier(0.4, 0.14, 0.3, 1);
-  z-index: 8000;
-}
+// .bx--loading-overlay {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   height: 100%;
+//   width: 100%;
+//   background-color: rgba(var(--cds-ui-02, #393939), 0.6);
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   transition: background-color 720ms cubic-bezier(0.4, 0.14, 0.3, 1);
+//   z-index: 8000;
+// }
 
 .bx--loading-overlay--stop {
   display: none;
@@ -5944,6 +5944,8 @@ input:not(output):not([data-invalid]):-moz-ui-invalid {
 
 .bx--select--light .bx--select-input {
   background-color: var(--cds-field-02, #393939);
+  max-width: 100%;
+  width: 100%;
 }
 .bx--select--light .bx--select-input:hover {
   background-color: var(--cds-hover-ui, #353535);
