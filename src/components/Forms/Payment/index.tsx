@@ -130,6 +130,16 @@ export const Payment = ({
   return (
     <Form className={`${styles.formContainer} ${styles.formContainerGrid}`}>
       <div className={styles.gridSpanAll}>
+        <h3 className={`${styles.formHeading} u-margin-t-07 u-margin-b-03`}>
+          You will not be charged until you upgrade.
+        </h3>
+        <p
+          className={`${styles.formSubheading} u-margin-b-05 sidebar__body--long`}
+        >
+          We are asking for this information to ensure you're not a robot.
+        </p>
+      </div>
+      <div className={styles.gridSpanAll}>
         <TextInput
           name="creditCard"
           className={styles.textInput}
