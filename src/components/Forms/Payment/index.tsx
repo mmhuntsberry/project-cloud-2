@@ -45,24 +45,6 @@ export const Payment = ({
   const formContext = useContext(FormContext);
   const registerContext = useContext(RegisterContext);
 
-  /**
-   * Button Constraints
-   *
-   * Button remains disabled until all contstraints
-   * are met.
-   */
-  // const isButtonDisabled = () => {
-  //   if (
-  //     isAddressChecked &&
-  //     paymentContext.creditCard.success &&
-  //     paymentContext.cvv.success &&
-  //     paymentContext.expiration.success
-  //   ) {
-  //     formContext.setActiveForm(FORMSTATUS.COMPLETE);
-  //     setIsFormComplete({ ...isFormComplete, payment: true });
-  //   }
-  // };
-
   useEffect(() => {
     if (
       paymentContext.creditCard.success &&
@@ -74,20 +56,12 @@ export const Payment = ({
       // (paymentContext.companyName.success ||
       //   (paymentContext.firstname.success && paymentContext.lastname.success))
     ) {
-      console.log("HERE");
       formContext.setActiveForm(FORMSTATUS.COMPLETE);
       setIsFormComplete({ ...isFormComplete, payment: true });
     } else {
       setIsFormComplete({ ...isFormComplete, payment: false });
     }
     /* eslint-disable */
-    // console.log(paymentContext.creditCard.success);
-    // console.log(paymentContext.cvv.success);
-    // console.log(paymentContext.expiration.success);
-    // console.log(paymentContext.address01.success);
-    // console.log(paymentContext.city.success);
-    // console.log(paymentContext.zipcode.success);
-    console.log("------------------");
   }, [
     isAddressChecked,
     paymentContext.creditCard.success,
@@ -96,9 +70,6 @@ export const Payment = ({
     paymentContext.address01.success,
     paymentContext.city.success,
     paymentContext.zipcode.success,
-    // paymentContext.companyName.success,
-    // paymentContext.firstname.success,
-    // paymentContext.lastname.success,
   ]);
   /* eslint-enable */
 
