@@ -101,12 +101,10 @@ export const Payment = ({
   return (
     <Form className={`${styles.formContainer} ${styles.formContainerGrid}`}>
       <div className={styles.gridSpanAll}>
-        <h3 className={`${styles.formHeading} u-margin-t-07 u-margin-b-03`}>
+        <h3 className={`${styles.formHeading}  u-margin-t-05  u-margin-b-03`}>
           You will not be charged until you upgrade.
         </h3>
-        <p
-          className={`${styles.formSubheading} u-margin-b-05 sidebar__body--long`}
-        >
+        <p className={`${styles.formSubheading} u-margin-b-05`}>
           We are asking for this information to ensure you're not a robot.
         </p>
       </div>

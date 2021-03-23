@@ -34,9 +34,11 @@ $carbon--theme: $carbon--theme--g100;
 .formHeading {
   @include carbon--type-style('productive-heading-03');
   color: $text-01;
+  font-size: 14px;
 }
 
 .formSubheading {
   color: $text-02;
   @include carbon--type-style('body-short-02');
+  font-size: 14px;
 }

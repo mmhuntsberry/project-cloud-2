@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import GlobalHeader from "./components/GlobalHeader";
 import { Register } from "./components/Forms/Register";
 import { Verify } from "./components/Forms/Verify";
@@ -6,7 +6,7 @@ import { Payment } from "./components/Forms/Payment";
 import { Accordion } from "./components/Accordion";
 import { Header } from "./components/Forms/Header";
 import { Sidebar } from "./components/Sidebar";
-import { FormContextProvider } from "./contexts/FormContext";
+import { FormContext, FormContextProvider } from "./contexts/FormContext";
 import { RegisterContextProvider } from "./contexts/RegisterContext";
 import { VerifyContextProvider } from "./contexts/VerifyContext";
 import { PaymentContextProvider } from "./contexts/PaymentContext";
@@ -25,6 +25,7 @@ const App = () => {
     payment: false,
   });
   const [isLoading, setIsLoading] = useState(false);
+  const formContext = useContext(FormContext);
 
   const isButtonDisabled =
     isFormComplete.payment && isFormComplete.register && isFormComplete.verify;
@@ -88,23 +89,28 @@ const App = () => {
                   <div
                     className={`${styles.formContainer} u-margin-t-05 bx--col-lg-16 bx--col-md-6 bx--col-sm-4`}
                   >
-                    <p className={styles.terms}>
-                      By submitting this form, you acknowledge that you have
-                      read and understand both the{" "}
-                      <Link href="#" className={styles.termsLink}>
-                        IBM Privacy Statement{" "}
-                      </Link>
-                      and{" "}
-                      <Link href="#" className={styles.termsLink}>
-                        Terms and Conditions
-                      </Link>
-                      , and that you grant IBM permission to contact you to
-                      facilitate a successful experience.
-                    </p>
-                    <p className={styles.unsubscribe}>
-                      You may unsubscribe from communications at any time by
-                      clicking the unsubscribe link within any email.
-                    </p>
+                    {isFormComplete.verify && (
+                      <>
+                        <p className={styles.terms}>
+                          By submitting this form, you acknowledge that you have
+                          read and understand both the{" "}
+                          <Link href="#" className={styles.termsLink}>
+                            IBM Privacy Statement{" "}
+                          </Link>
+                          and{" "}
+                          <Link href="#" className={styles.termsLink}>
+                            Terms and Conditions
+                          </Link>
+                          , and that you grant IBM permission to contact you to
+                          facilitate a successful experience.
+                        </p>
+                        <p className={styles.unsubscribe}>
+                          You may unsubscribe from communications at any time by
+                          clicking the unsubscribe link within any email.
+                        </p>
+                      </>
+                    )}
+
                     <Button
                       className={`${styles.formButton} u-margin-b-09`}
                       renderIcon={ArrowRight32}

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import {
   Form,
@@ -48,6 +48,10 @@ export const Register = ({
   const passwordConstraints = buildPasswordConstraints(password.value);
   const [isOpen, setIsOpen] = useState(false);
   const history = useHistory();
+
+  useEffect(() => {
+    console.log(formContext);
+  });
 
   const renderStatus = () => {
     const { loading, success } = email;
