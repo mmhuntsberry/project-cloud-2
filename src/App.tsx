@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import GlobalHeader from "./components/GlobalHeader";
 import { Register } from "./components/Forms/Register";
 import { Verify } from "./components/Forms/Verify";
@@ -6,7 +6,7 @@ import { Payment } from "./components/Forms/Payment";
 import { Accordion } from "./components/Accordion";
 import { Header } from "./components/Forms/Header";
 import { Sidebar } from "./components/Sidebar";
-import { FormContext, FormContextProvider } from "./contexts/FormContext";
+import { FormContextProvider } from "./contexts/FormContext";
 import { RegisterContextProvider } from "./contexts/RegisterContext";
 import { VerifyContextProvider } from "./contexts/VerifyContext";
 import { PaymentContextProvider } from "./contexts/PaymentContext";
@@ -25,7 +25,6 @@ const App = () => {
     payment: false,
   });
   const [isLoading, setIsLoading] = useState(false);
-  const formContext = useContext(FormContext);
 
   const isButtonDisabled =
     isFormComplete.payment && isFormComplete.register && isFormComplete.verify;
