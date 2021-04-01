@@ -328,13 +328,13 @@ export const Payment = ({
         onChange={(evt) => {
           paymentContext.updateInput(evt);
 
-          if (paymentContext.zipcode.value.length > 2) {
+          if (paymentContext.zipcode.value.length >= 4) {
             return paymentContext.fieldSuccess(evt);
-          } else {
+          } else if (paymentContext.zipcode.value.length < 4) {
             return paymentContext.fieldError(evt);
           }
         }}
-        onBlur={(evt) => paymentContext.fieldSuccess(evt)}
+        // onBlur={(evt) => paymentContext.fieldSuccess(evt)}
         size="xl"
         light
       />
