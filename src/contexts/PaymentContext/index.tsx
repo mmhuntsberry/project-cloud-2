@@ -79,6 +79,7 @@ const initialState = {
   updateInput: (evt: React.ChangeEvent<HTMLInputElement>): void => {},
   checkError: (evt: React.ChangeEvent<HTMLInputElement>): void => {},
   fieldSuccess: (evt: React.ChangeEvent<HTMLInputElement>): void => {},
+  fieldError: (evt: React.ChangeEvent<HTMLInputElement>): void => {},
   setLoading: (evt: React.ChangeEvent<HTMLInputElement>): void => {},
   formSuccess: (): void => {},
   formEdit: (): void => {},
@@ -119,6 +120,18 @@ const reducer = (state: LoginState, action: LoginAction) => {
         },
       };
     case "FIELD_SUCCESS":
+      return {
+        ...state,
+        [action.field]: {
+          field: action.field,
+          value: action.payload,
+          hasError: action.hasError,
+          error: action.error,
+          loading: action.loading,
+          success: action.success,
+        },
+      };
+    case "FIELD_ERROR":
       return {
         ...state,
         [action.field]: {
@@ -192,6 +205,15 @@ type LoginAction =
     }
   | {
       type: "FIELD_SUCCESS";
+      field: string;
+      payload: string;
+      hasError: boolean;
+      error: string;
+      loading: boolean;
+      success: boolean;
+    }
+  | {
+      type: "FIELD_ERROR";
       field: string;
       payload: string;
       hasError: boolean;
@@ -423,6 +445,16 @@ export const PaymentContextProvider: React.FC = ({ children }) => {
             error: "",
             loading: false,
             success: true,
+          }),
+        fieldError: (evt): void =>
+          dispatch({
+            type: "FIELD_ERROR",
+            field: evt.target.name,
+            payload: evt.target.value,
+            hasError: false,
+            error: "",
+            loading: false,
+            success: false,
           }),
         formSuccess: (): void =>
           dispatch({

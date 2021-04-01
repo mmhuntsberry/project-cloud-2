@@ -325,7 +325,15 @@ export const Payment = ({
         placeholder="Enter zip code"
         type="text"
         value={paymentContext.zipcode.value}
-        onChange={paymentContext.updateInput}
+        onChange={(evt) => {
+          paymentContext.updateInput(evt);
+
+          if (paymentContext.zipcode.value.length > 2) {
+            return paymentContext.fieldSuccess(evt);
+          } else {
+            return paymentContext.fieldError(evt);
+          }
+        }}
         onBlur={(evt) => paymentContext.fieldSuccess(evt)}
         size="xl"
         light
